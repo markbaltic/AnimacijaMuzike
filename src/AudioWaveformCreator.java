@@ -39,7 +39,7 @@ public class AudioWaveformCreator {
     SamplingGraph samplingGraph;
     String waveformFilename;
     Color imageBackgroundColor = new Color(20,20,20);
-    ArrayList<Double> seznam = new ArrayList<Double>();
+    ArrayList<Integer> seznam = new ArrayList<Integer>();
 
     public AudioWaveformCreator(String fileName, String waveformFilename) throws UnsupportedAudioFileException, IOException {
         file = new File(fileName);
@@ -146,7 +146,8 @@ public class AudioWaveformCreator {
                 }
                 double y_new = (double) (h * (128 - my_byte) / 256);
                 //System.out.println(x + " " + y_last + " " + y_new);
-                seznam.add(y_last);
+                int element = (int) y_last;
+                seznam.add(element);
                 lines.add(new Line2D.Double(x, y_last, x, y_new));
                 y_last = y_new;
             }
