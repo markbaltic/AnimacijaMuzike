@@ -31,6 +31,7 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 		super.paintComponent(g);
 		g.setColor(Color.BLACK);
 		g.drawLine(300, 300, (int)(300+r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)));
+		
 //		g.fillRect(x, y, 50, 50);
 		
 	}
