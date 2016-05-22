@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
 
@@ -24,10 +25,16 @@ public class Test {
 		okno.setVisible(true);
 		okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		okno.add(p);
+		//Graphics g1 = null;
+		//p.risikvadrate(g1, 42);
 		
-		AudioWaveformCreator awc = new AudioWaveformCreator("mono_16bit.wav", "test.png");
+		Pretvornik mp3 = new Pretvornik();
+		AudioFormat wav = new AudioFormat(0, 0, 0, false, false);
+		//mp3.getAudioDataBytes(, wav);
+		
+		AudioWaveformCreator awc = new AudioWaveformCreator("test.wav", "test.png");
         try {
-            File yourFile = new File("mono_16bit.wav");
+            File yourFile = new File("test.wav");
             AudioInputStream stream;
             AudioFormat format;
             DataLine.Info info;
