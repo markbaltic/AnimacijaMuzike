@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
@@ -10,7 +12,12 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.AbstractAction;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.event.MenuListener;
 
 public class Test {
 	public static int podatek;
@@ -18,16 +25,39 @@ public class Test {
 	public static void main(String[] args) throws Exception {
 		
 		
-		Animacija p = new Animacija();
-		p.setBackground(Color.ORANGE);
+		Animacija anim = new Animacija();
+		anim.setBackground(Color.ORANGE);
 		
 		JFrame okno = new JFrame();
 		
-		okno.setTitle("Proba");
+		okno.setTitle("Animacija Muzike");
 		okno.setSize(600, 600);
-		okno.setVisible(true);
 		okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		okno.add(p);
+		okno.add(anim);
+		JMenuBar menuBar = new JMenuBar();
+		JMenu fileMenu = new JMenu("Oblika");
+		menuBar.add(fileMenu);
+		JMenuItem krog = new JMenuItem(new AbstractAction("Krog")
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				Animacija.oblika = "krog";
+			}
+		});
+		JMenuItem crta = new JMenuItem(new AbstractAction("Crta")
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				Animacija.oblika = "crta";
+			}
+		});
+		fileMenu.add(krog);
+		fileMenu.add(crta);
+
+		
+		okno.setJMenuBar(menuBar);
+		okno.setVisible(true);
+		
 		//Graphics g1 = null;
 		//p.risikvadrate(g1, 42);
 		
@@ -61,7 +91,7 @@ public class Test {
         		int podatek = awc.seznam.get(i);
         		Thread.sleep(cas);
         		Color barva = new Color(podatek*160000);
-        		p.setBackground(barva);
+        		anim.setBackground(barva);
         		Animacija.st = podatek;
         		
 //        		System.out.println(podatek);

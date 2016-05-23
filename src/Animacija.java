@@ -11,7 +11,8 @@ import javax.swing.Timer;
 
 public class Animacija extends JPanel implements ActionListener, KeyListener {
 	public int cas = 5;
-	public static int st = 0;
+	public static int st = 0; //stevilo, ki ga dobimo iz podatkov iz glasbene datoteke
+	public static String oblika = "krog";
 	
 	Timer tm = new Timer(cas, this); //število pove na koliko ms se izvede funkcija actionPerformed
 	int w=0, velW=1; // w je trenuten kot èrte, velW služi kot HITROST (se prišteva w-ju in tako ga poveèuje). Ko poveèujemo vrednost velW,
@@ -32,19 +33,29 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		g.setColor(Color.BLACK);
+		if(oblika == "krog")
+		{
+			g.drawOval(300, 300, r, r);
+			g.drawOval(300-r, 300-r, r, r);
+			g.drawOval(300-r, 300, r, r);
+			g.drawOval(300, 300-r, r, r);
+		}
+		else
+		{
 		g.drawLine(300, 300, (int)(300+r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)));//riše desno èrto
 		g.drawLine(300, 300, (int)(300-r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)));// riše levo èrto
-		
+		}
+
 	}
 	
 
 
 
 	@Override
-	public void actionPerformed(ActionEvent e) //na vsake 5ms se izvede ta akcija (prišteje se kot) in potem se poklièe repaint();
+	public void actionPerformed(ActionEvent e) //na vsake "cas = 5ms" se izvede ta akcija (prišteje se kot) in potem se poklièe repaint();
 	{
 		r = st*st/100;
-		System.out.println(st);
+//		System.out.println(st);
 		w += velW;
 		if(r<0)
 		{
