@@ -13,6 +13,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 
 public class Test {
+	public static int podatek;
 
 	public static void main(String[] args) throws Exception {
 		
@@ -61,8 +62,9 @@ public class Test {
         		Thread.sleep(cas);
         		Color barva = new Color(podatek*160000);
         		p.setBackground(barva);
+        		Animacija.st = podatek;
         		
-        		System.out.println(podatek);
+//        		System.out.println(podatek);
         	}            
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();

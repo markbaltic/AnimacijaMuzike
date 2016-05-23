@@ -11,10 +11,11 @@ import javax.swing.Timer;
 
 public class Animacija extends JPanel implements ActionListener, KeyListener {
 	public int cas = 5;
+	public static int st = 0;
 	
 	Timer tm = new Timer(cas, this); //število pove na koliko ms se izvede funkcija actionPerformed
-	int w=0, velW=0; // w je trenuten kot èrte, velW služi kot HITROST (se prišteva w-ju in tako ga poveèuje). Ko pospešimo palico,
-					// poveèujemo vrednost velW
+	int w=0, velW=1; // w je trenuten kot èrte, velW služi kot HITROST (se prišteva w-ju in tako ga poveèuje). Ko poveèujemo vrednost velW,
+					// pospešimo palico
 	int n = 100; //del kroga
 	int r = 100; //radij
 	
@@ -42,7 +43,8 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent e) //na vsake 5ms se izvede ta akcija (prišteje se kot) in potem se poklièe repaint();
 	{
-
+		r = st*st/100;
+		System.out.println(st);
 		w += velW;
 		if(r<0)
 		{
