@@ -10,12 +10,16 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public final class GlasbenaAnimacija {
+	
+	public static int podatek;
 
     /**
      * Test client.
      * @throws Exception 
      */
     public static void main(String[] args) throws Exception {
+    	
+    	
 
         Draw draw1 = new Draw("Test client 1");
 
@@ -43,8 +47,7 @@ public final class GlasbenaAnimacija {
         int cas = (int) ((awc.duration/dolzina)*1000);
         try {        	
         	for (int i=0; i < dolzina; i++){
-        		//int podatek = awc.seznam.get(i);
-        		int podatek = awc.seznam.get(i);
+        		podatek = awc.seznam.get(i);
         		draw1.clear();        		
         		draw1.filledSquare(.50, .50, podatek/1000); //(podatek+1)/1000);
         		Thread.sleep(cas);

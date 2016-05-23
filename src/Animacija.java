@@ -10,15 +10,16 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Animacija extends JPanel implements ActionListener, KeyListener {
+	public int cas = 5;
 	
-	Timer tm = new Timer(5, this);
-	int w=0, velW=0;
+	Timer tm = new Timer(cas, this); //število pove na koliko ms se izvede funkcija actionPerformed
+	int w=0, velW=0; // w je trenuten kot èrte, velW služi kot HITROST (se prišteva w-ju in tako ga poveèuje). Ko pospešimo palico,
+					// poveèujemo vrednost velW
 	int n = 100; //del kroga
 	int r = 100; //radij
 	
-//	int x=0, y=0, velX=0, velY=0;
-	
-	public Animacija(){
+
+	public Animacija(){ 
 		tm.start();
 		addKeyListener(this);
 		setFocusable(true);
@@ -30,9 +31,8 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		g.setColor(Color.BLACK);
-		g.drawLine(300, 300, (int)(300+r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)));
-		
-//		g.fillRect(x, y, 50, 50);
+		g.drawLine(300, 300, (int)(300+r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)));//riše desno èrto
+		g.drawLine(300, 300, (int)(300-r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)));// riše levo èrto
 		
 	}
 	
@@ -40,7 +40,7 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 
 
 	@Override
-	public void actionPerformed(ActionEvent e)
+	public void actionPerformed(ActionEvent e) //na vsake 5ms se izvede ta akcija (prišteje se kot) in potem se poklièe repaint();
 	{
 
 		w += velW;
@@ -49,31 +49,6 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 		r = 0;
 		}
 		repaint();
-		
-//		if(x < 0)
-//		{
-//			velX = 0;
-//			x = 0;
-//		}
-//		if(x > 550)
-//		{
-//			velX = 0;
-//			x = 550;
-//		}
-//		if(y < 0)
-//		{
-//			velY = 0;
-//			y = 0;
-//		}
-//		if(y > 550)
-//		{
-//			velY = 0;
-//			y = 550;
-//		}
-//		x = x + velX;
-//		y += velY;
-//		repaint();
-		
 	}
 
 
@@ -84,26 +59,18 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 		
 		if(c == KeyEvent.VK_LEFT)
 		{
-//			velX = -1;
-//			velY = 0;
 			velW += -1;
 		}
 		if(c == KeyEvent.VK_UP)
 		{
-//			velX = 0;
-//			velY = -1;
 			r += 10; 
 		}
 		if(c == KeyEvent.VK_RIGHT)
 		{
-//			velX = 1;
-//			velY = 0;
 			velW += 1;
 		}
 		if(c == KeyEvent.VK_DOWN)
 		{
-//			velX = 0;
-//			velY = 1;
 			r -= 10;
 		}
 		if(c == KeyEvent.VK_S)
@@ -124,8 +91,7 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
-//		velX = 0;
-//		velY = 0;
+
 	}
 
 

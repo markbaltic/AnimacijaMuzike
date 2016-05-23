@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -14,6 +15,7 @@ import javax.swing.JFrame;
 public class Test {
 
 	public static void main(String[] args) throws Exception {
+		
 		
 		Animacija p = new Animacija();
 		p.setBackground(Color.ORANGE);
@@ -32,9 +34,9 @@ public class Test {
 		AudioFormat wav = new AudioFormat(0, 0, 0, false, false);
 		//mp3.getAudioDataBytes(, wav);
 		
-		AudioWaveformCreator awc = new AudioWaveformCreator("test.wav", "test.png");
+		AudioWaveformCreator awc = new AudioWaveformCreator("mono_16bit.wav", "test.png");
         try {
-            File yourFile = new File("test.wav");
+            File yourFile = new File("mono_16bit.wav");
             AudioInputStream stream;
             AudioFormat format;
             DataLine.Info info;
@@ -51,14 +53,13 @@ public class Test {
             System.out.println("Napaka");
         }
         awc.createAudioInputStream();
-        int dolzina = awc.seznam.size();
+        int dolzina = awc.seznam.size();       
         int cas = (int) ((awc.duration/dolzina)*1000);
         try {        	
         	for (int i=0; i < dolzina; i++){
-        		//int podatek = awc.seznam.get(i);
         		int podatek = awc.seznam.get(i);
         		Thread.sleep(cas);
-        		Color barva = new Color(podatek);
+        		Color barva = new Color(podatek*160000);
         		p.setBackground(barva);
         		
         		System.out.println(podatek);
