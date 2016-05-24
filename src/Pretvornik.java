@@ -21,7 +21,7 @@ public class Pretvornik {
 	}
 	
 	public static boolean pravilnostDatoteke(){
-		if (dolociKoncnico() == "mp3"){
+		if (dolociKoncnico().equals("mp3")){
 			return true;
 		}
 		else{

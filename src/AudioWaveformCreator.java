@@ -40,7 +40,7 @@ public class AudioWaveformCreator {
     String waveformFilename;
     Color imageBackgroundColor = new Color(20,20,20);
     ArrayList<Integer> seznam = new ArrayList<Integer>();
-    ArrayList<Vector<Double>> sezVektorjev = new ArrayList<Vector<Double>>();
+    ArrayList<Vector<Integer>> sezVektorjev = new ArrayList<Vector<Integer>>();
 
     public AudioWaveformCreator(String fileName, String waveformFilename) throws UnsupportedAudioFileException, IOException {
         file = new File(fileName);
@@ -147,10 +147,10 @@ public class AudioWaveformCreator {
                 }
                 double y_new = (double) (h * (128 - my_byte) / 256);
                 //System.out.println(x + " " + y_last + " " + y_new);
-                Vector<Double> podatki = new Vector<Double>();
-                podatki.add(y_new);
-                podatki.add((double) audioData[idx]);
-                podatki.add((double) my_byte);
+                Vector<Integer> podatki = new Vector<Integer>();
+                podatki.add((int) y_new);
+                podatki.add(audioData[idx]);
+                podatki.add((int) my_byte);
                 int element = (int) y_last;
                 sezVektorjev.add(podatki);
                 seznam.add(element);

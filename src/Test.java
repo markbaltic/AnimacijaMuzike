@@ -22,7 +22,7 @@ import javax.swing.event.MenuListener;
 
 public class Test {
 	public static int podatek;
-	static String datoteka = "mono_16bit.wav";
+	static String datoteka = "test.mp3";
 	static Pretvornik pDatoteka = new Pretvornik(datoteka);
 
 	public static void main(String[] args) throws Exception {
@@ -89,12 +89,14 @@ public class Test {
         int cas = (int) ((awc.duration/dolzina)*1000);
         try {        	
         	for (int i=0; i < dolzina; i++){
+        		Vector<Integer> podatek1 = awc.sezVektorjev.get(i);
         		int podatek = awc.seznam.get(i);
+        		int podatek2 = podatek1.get(1);
         		Thread.sleep(cas);
         		Color barva = new Color(podatek*160000);
-        		anim.setBackground(barva);
+        		anim.setBackground(barva);        		
         		Animacija.st = podatek;
-        		Vector<Double> podatek1 = awc.sezVektorjev.get(i);
+        		
         		System.out.println(podatek1);
         	}            
         } catch(InterruptedException ex) {
