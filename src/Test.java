@@ -21,10 +21,13 @@ import javax.swing.event.MenuListener;
 
 public class Test {
 	public static int podatek;
+	static String datoteka = "mono_16bit.wav";
+	static Pretvornik pDatoteka = new Pretvornik(datoteka);
 
 	public static void main(String[] args) throws Exception {
 		
-		
+		String petvorjenaDatoteka = pDatoteka.pretvorimp3towav();
+		System.out.println(petvorjenaDatoteka);
 		Animacija anim = new Animacija();
 		anim.setBackground(Color.ORANGE);
 		
@@ -58,16 +61,12 @@ public class Test {
 		okno.setJMenuBar(menuBar);
 		okno.setVisible(true);
 		
-		//Graphics g1 = null;
-		//p.risikvadrate(g1, 42);
 		
-		Pretvornik mp3 = new Pretvornik();
-		AudioFormat wav = new AudioFormat(0, 0, 0, false, false);
-		//mp3.getAudioDataBytes(, wav);
 		
-		AudioWaveformCreator awc = new AudioWaveformCreator("mono_16bit.wav", "test.png");
+		
+		AudioWaveformCreator awc = new AudioWaveformCreator(petvorjenaDatoteka, "test.png");
         try {
-            File yourFile = new File("mono_16bit.wav");
+            File yourFile = new File(petvorjenaDatoteka);
             AudioInputStream stream;
             AudioFormat format;
             DataLine.Info info;
@@ -83,6 +82,7 @@ public class Test {
         catch (Exception e) {
             System.out.println("Napaka");
         }
+        
         awc.createAudioInputStream();
         int dolzina = awc.seznam.size();       
         int cas = (int) ((awc.duration/dolzina)*1000);
@@ -94,7 +94,7 @@ public class Test {
         		anim.setBackground(barva);
         		Animacija.st = podatek;
         		
-//        		System.out.println(podatek);
+        		System.out.println(podatek);
         	}            
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
