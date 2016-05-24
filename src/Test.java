@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Vector;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -93,8 +94,8 @@ public class Test {
         		Color barva = new Color(podatek*160000);
         		anim.setBackground(barva);
         		Animacija.st = podatek;
-        		
-        		System.out.println(podatek);
+        		Vector<Double> podatek1 = awc.sezVektorjev.get(i);
+        		System.out.println(podatek1);
         	}            
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
