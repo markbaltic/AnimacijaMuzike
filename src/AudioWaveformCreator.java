@@ -41,7 +41,7 @@ public class AudioWaveformCreator {
     Color imageBackgroundColor = new Color(20,20,20);
     ArrayList<Integer> seznam = new ArrayList<Integer>();
     ArrayList<Vector<Integer>> sezVektorjev = new ArrayList<Vector<Integer>>();
-
+    int vsota = 0;
     public AudioWaveformCreator(String fileName, String waveformFilename) throws UnsupportedAudioFileException, IOException {
         file = new File(fileName);
         this.waveformFilename = waveformFilename;
@@ -138,8 +138,11 @@ public class AudioWaveformCreator {
             byte my_byte = 0;
             double y_last = 0;
             int numChannels = format.getChannels();
-            for (double x = 0; x < w && audioData != null; x++) {
-                int idx = (int) (frames_per_pixel * numChannels * x);
+            //for (double x = 0; x < w && audioData != null; x++) {
+            System.out.println(audioData.length);
+            for (int x = 0; x < audioData.length && audioData != null; x+=100) {
+            	
+                int idx = (int) (x);
                 if (format.getSampleSizeInBits() == 8) {
                      my_byte = (byte) audioData[idx];
                 } else {
@@ -153,17 +156,18 @@ public class AudioWaveformCreator {
                 podatki.add((int) my_byte);
                 int element = (int) y_last;
                 sezVektorjev.add(podatki);
+                vsota += element;
                 seznam.add(element);
                 lines.add(new Line2D.Double(x, y_last, x, y_new));
                 y_last = y_new;
             }
-            saveToFile(waveformFilename);
+            //saveToFile(waveformFilename);
         }
 
 
         public void saveToFile(String filename) {            
-            int w = 500;
-            int h = 200;
+            int w = 1000;
+            int h = 400;
             int INFOPAD = 15;
 
             BufferedImage bufferedImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);

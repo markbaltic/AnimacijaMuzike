@@ -1,3 +1,5 @@
+
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -22,7 +24,10 @@ import javax.swing.event.MenuListener;
 
 public class Test {
 	public static int podatek;
-	static String datoteka = "test.mp3";
+	static String datoteka1 = "03 Gramatik - War Of The Currents.mp3.wav";
+	static String datoteka6 ="mono_16bit.wav";
+	static String datoteka5 ="Commercial DEMO - 15.mp3";
+	static String datoteka ="test.mp3";
 	static Pretvornik pDatoteka = new Pretvornik(datoteka);
 
 	public static void main(String[] args) throws Exception {
@@ -85,19 +90,28 @@ public class Test {
         }
         
         awc.createAudioInputStream();
-        int dolzina = awc.seznam.size();       
-        int cas = (int) ((awc.duration/dolzina)*1000);
+        int dolzina = awc.seznam.size();
+        double povprecje = awc.vsota/dolzina;
+        System.out.println("Povpreèje: " + povprecje);
+        System.out.println(awc.duration);
+        int cas = (int) ((((awc.duration))/dolzina)*1000);
+        System.out.println(dolzina);
         try {        	
         	for (int i=0; i < dolzina; i++){
         		Vector<Integer> podatek1 = awc.sezVektorjev.get(i);
         		int podatek = awc.seznam.get(i);
         		int podatek2 = podatek1.get(1);
         		Thread.sleep(cas);
-        		Color barva = new Color(podatek*160000);
-        		anim.setBackground(barva);        		
-        		Animacija.st = podatek;
         		
-        		System.out.println(podatek1);
+        		if (podatek > povprecje+50){
+        			Color barva = new Color(podatek*160000);
+        			anim.setBackground(barva);
+        		}
+        		
+        		Animacija.st = Math.abs(podatek);
+        		
+        		
+        		//System.out.println(podatek1);
         	}            
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
