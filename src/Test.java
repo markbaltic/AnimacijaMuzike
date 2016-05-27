@@ -22,7 +22,7 @@ import javax.swing.event.MenuListener;
 
 public class Test {
 	public static int podatek;
-	static String datoteka = "test.mp3";
+	static String datoteka = "mono_16bit.wav";
 	static Pretvornik pDatoteka = new Pretvornik(datoteka);
 
 	public static void main(String[] args) throws Exception {
