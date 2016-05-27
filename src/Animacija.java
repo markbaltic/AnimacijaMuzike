@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -17,7 +19,7 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	Timer tm = new Timer(cas, this); //število pove na koliko ms se izvede funkcija actionPerformed
 	int w=0, velW=1; // w je trenuten kot èrte, velW služi kot HITROST (se prišteva w-ju in tako ga poveèuje). Ko poveèujemo vrednost velW,
 					// pospešimo palico
-	int n = 100; //del kroga
+	int n = 500; //del kroga
 	int r = 100; //radij
 	
 
@@ -32,18 +34,47 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		g.setColor(Color.BLACK);
+		g.setColor(Color.BLUE);
 		if(oblika == "krog")
-		{
-			g.drawOval(300, 300, r, r);
-			g.drawOval(300-r, 300-r, r, r);
-			g.drawOval(300-r, 300, r, r);
-			g.drawOval(300, 300-r, r, r);
+		{	//g.fillRect(150, 150, 300, 300);
+			n = 500;
+			double X = 300;
+			double Y = 300;
+			int R = 80;
+			
+//			g.drawOval(300, 300, r, r);
+//			g.drawOval(300-r, 300-r, r, r);
+//			g.drawOval(300-r, 300, r, r);
+//			g.drawOval(300, 300-r, r, r);
+			g.drawLine(300, 0, 300, 600);
+			g.drawLine(0, 300, 600, 300);
+//			g.fillOval(150, 150, 300, 300);
+			g.fillOval((int)((X-R)+(R/2+r)*Math.cos((Math.PI*2*(w)/n))), (int) ((Y-R)+(R/2+r)*Math.sin(-Math.PI*2*(w)/n)), 2*R, 2*R);
+			g.fillOval((int)((X-R)+(R/2+r)*Math.sin((Math.PI*2*(w)/n))), (int) ((Y-R)+(R/2+r)*Math.cos(-Math.PI*2*(w)/n)), 2*R, 2*R);
+			g.fillOval((int)((X-R)-(R/2+r)*Math.cos((Math.PI*2*(w)/n))), (int) ((Y-R)-(R/2+r)*Math.sin(-Math.PI*2*(w)/n)), 2*R, 2*R);
+			g.fillOval((int)((X-R)-(R/2+r)*Math.sin((Math.PI*2*(w)/n))), (int) ((Y-R)-(R/2+r)*Math.cos(-Math.PI*2*(w)/n)), 2*R, 2*R);
+
+
+
+//			g.fillOval(300-r, 300, 150, 150);
+//			g.fillOval(300, 300-r, 150, 150);
+			
+//			g.fillOval((int)(300+r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)), 150, 150);
 		}
 		else
 		{
+		n = 100;
 		g.drawLine(300, 300, (int)(300+r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)));//riše desno èrto
 		g.drawLine(300, 300, (int)(300-r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)));// riše levo èrto
+		g.drawLine(300, 300, (int)(300-r),(int) (300+r));
+		g.drawLine(300, 300, (int)(300-r),(int) (300-r));
+		g.drawLine(300, 300, (int)(300+r),(int) (300+r));
+		g.drawLine(300, 300, (int)(300+r),(int) (300-r));
+		g.drawLine(300, 300, (int)(300-r),300);
+		g.drawLine(300, 300, (int)(300+r),300);
+		g.drawLine(300, 300, 300,(int) (300+r));
+		g.drawLine(300, 300, 300,(int) (300-r));
+		
 		}
 
 	}

@@ -22,10 +22,10 @@ import javax.swing.event.MenuListener;
 
 public class Test {
 	public static int podatek;
-	static String datoteka1 = "03 Gramatik - War Of The Currents.mp3.wav";
-	static String datoteka6 ="mono_16bit.wav";
-	static String datoteka5 ="Commercial DEMO - 15.mp3";
-	static String datoteka ="test.mp3";
+	static String datoteka = "03 Gramatik - War Of The Currents.mp3.wav";
+	static String datoteka1 ="mono_16bit.wav";
+	static String datoteka3 ="Commercial DEMO - 15.mp3";
+	static String datoteka2 ="test.mp3";
 	static Pretvornik pDatoteka = new Pretvornik(datoteka);
 
 	public static void main(String[] args) throws Exception {
