@@ -22,10 +22,11 @@ import javax.swing.event.MenuListener;
 
 public class Test {
 	public static int podatek;
-	static String datoteka = "03 Gramatik - War Of The Currents.mp3.wav";
-	static String datoteka1 ="mono_16bit.wav";
-	static String datoteka3 ="Commercial DEMO - 15.mp3";
-	static String datoteka2 ="test.mp3";
+	static String datoteka4 = "03 Gramatik - War Of The Currents.mp3.wav";
+	static String datoteka5 ="mono_16bit.wav";
+	static String datoteka2 ="Commercial DEMO - 15.mp3";
+	static String datoteka ="test.mp3";
+	static String datoteka1 = "";
 	static Pretvornik pDatoteka = new Pretvornik(datoteka);
 
 	public static void main(String[] args) throws Exception {
@@ -90,7 +91,7 @@ public class Test {
         awc.createAudioInputStream();
         int dolzina = awc.seznam.size();
         double povprecje = awc.vsota/dolzina;
-        System.out.println("Povpreèje: " + povprecje);
+        System.out.println("PovpreÄje: " + povprecje);
         System.out.println(awc.duration);
         int cas = (int) ((((awc.duration))/dolzina)*1000);
         System.out.println(dolzina);
@@ -104,6 +105,7 @@ public class Test {
         		if (podatek > povprecje+50){
         			Color barva = new Color(podatek*160000);
         			anim.setBackground(barva);
+        			// Sprememba kotne hitrosti (ne za veliko) !!!
         		}
         		
         		Animacija.st = Math.abs(podatek);
