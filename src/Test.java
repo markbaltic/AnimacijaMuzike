@@ -103,14 +103,14 @@ public class Test {
         		Thread.sleep(cas);
         		
         		if (podatek > povprecje+50){
-        			Color barva = new Color(podatek*160000);
+        			Color barva = new Color(podatek);
         			anim.setBackground(barva);
 
         			
         		}
         		
         		Animacija.st = Math.abs(podatek);
-        		Animacija.kotnahitrost = podatek2;//namesto podatek2 vstaviö vrednost hitrosti.
+        		Animacija.kotnahitrost = podatek2;//namesto podatek2 vstavi≈° vrednost hitrosti.
         		
         		
         		System.out.println(podatek2);
