@@ -105,13 +105,15 @@ public class Test {
         		if (podatek > povprecje+50){
         			Color barva = new Color(podatek*160000);
         			anim.setBackground(barva);
-        			// Sprememba kotne hitrosti (ne za veliko) !!!
+
+        			
         		}
         		
         		Animacija.st = Math.abs(podatek);
+        		Animacija.kotnahitrost = podatek2;//namesto podatek2 vstaviš vrednost hitrosti.
         		
         		
-        		//System.out.println(podatek1);
+        		System.out.println(podatek2);
         	}            
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();

@@ -14,10 +14,11 @@ import javax.swing.Timer;
 public class Animacija extends JPanel implements ActionListener, KeyListener {
 	public int cas = 5;
 	public static int st = 0; //stevilo, ki ga dobimo iz podatkov iz glasbene datoteke
+	public static int kotnahitrost = 0;
 	public static String oblika = "krog";
 	
 	Timer tm = new Timer(cas, this); //število pove na koliko ms se izvede funkcija actionPerformed
-	int w=0, velW=1; // w je trenuten kot èrte, velW služi kot HITROST (se prišteva w-ju in tako ga poveèuje). Ko poveèujemo vrednost velW,
+	int w=0, velW=0; // w je trenuten kot èrte, velW služi kot HITROST (se prišteva w-ju in tako ga poveèuje). Ko poveèujemo vrednost velW,
 					// pospešimo palico
 	int n = 500; //del kroga
 	int r = 100; //radij
@@ -37,7 +38,7 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLUE);
 		if(oblika == "krog")
 		{	//g.fillRect(150, 150, 300, 300);
-			n = 500;
+			n = 5000; // razdeliš ravnino na kote - vpliva na kotno hitrost
 			double X = 300;
 			double Y = 300;
 			int R = 80;
@@ -63,7 +64,7 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 		}
 		else
 		{
-		n = 100;
+		n = 10000;// razdeliš ravnino na kote - vpliva na kotno hitrost
 		g.drawLine(300, 300, (int)(300+r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)));//riše desno èrto
 		g.drawLine(300, 300, (int)(300-r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)));// riše levo èrto
 		g.drawLine(300, 300, (int)(300-r),(int) (300+r));
@@ -86,8 +87,8 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	public void actionPerformed(ActionEvent e) //na vsake "cas = 5ms" se izvede ta akcija (prišteje se kot) in potem se poklièe repaint();
 	{
 		r = st*st/100;
-//		System.out.println(st);
-		w += velW;
+		System.out.println(st);
+		w += kotnahitrost;
 		if(r<0)
 		{
 		r = 0;
