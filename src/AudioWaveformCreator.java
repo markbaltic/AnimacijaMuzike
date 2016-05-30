@@ -42,6 +42,7 @@ public class AudioWaveformCreator {
     ArrayList<Integer> seznam = new ArrayList<Integer>();
     ArrayList<Vector<Integer>> sezVektorjev = new ArrayList<Vector<Integer>>();
     int vsota = 0;
+	public int audioData;
     public AudioWaveformCreator(String fileName, String waveformFilename) throws UnsupportedAudioFileException, IOException {
         file = new File(fileName);
         this.waveformFilename = waveformFilename;
@@ -125,7 +126,7 @@ public class AudioWaveformCreator {
                  audioData = new int[nlengthInSamples];
                  if (format.getEncoding().toString().startsWith("PCM_SIGN")) {
                      for (int i = 0; i < audioBytes.length; i++) {
-                         audioData[i] = audioBytes[i];
+                         audioData[i] = audioBytes[i];                         
                      }
                  } else {
                      for (int i = 0; i < audioBytes.length; i++) {
@@ -133,7 +134,9 @@ public class AudioWaveformCreator {
                      }
                  }
             }
-
+            
+            
+            
             int frames_per_pixel = audioBytes.length / format.getFrameSize()/w;
             byte my_byte = 0;
             double y_last = 0;
@@ -158,7 +161,7 @@ public class AudioWaveformCreator {
                 sezVektorjev.add(podatki);
                 vsota += element;
                 seznam.add(element);
-                lines.add(new Line2D.Double(x, y_last, x, y_new));
+                //lines.add(new Line2D.Double(x, y_last, x, y_new));
                 y_last = y_new;
             }
             //saveToFile(waveformFilename);

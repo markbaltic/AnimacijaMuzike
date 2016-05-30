@@ -20,6 +20,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.event.MenuListener;
 
+
+
 public class Test {
 	public static int podatek;
 	static String datoteka4 = "03 Gramatik - War Of The Currents.mp3.wav";
@@ -89,11 +91,13 @@ public class Test {
         }
         
         awc.createAudioInputStream();
-        int dolzina = awc.seznam.size();
+//        int dolzina = awc.audioData.size(); ??????????????????????????
         double povprecje = awc.vsota/dolzina;
         System.out.println("Povprečje: " + povprecje);
         System.out.println(awc.duration);
         int cas = (int) ((((awc.duration))/dolzina)*1000);
+        int dolzinaPesmi = (int) awc.duration*1000;
+        long zacetniCas = System.currentTimeMillis();
         System.out.println(dolzina);
         try {        	
         	for (int i=0; i < dolzina; i++){
@@ -101,16 +105,17 @@ public class Test {
         		int podatek = awc.seznam.get(i);
         		int podatek2 = podatek1.get(1);
         		Thread.sleep(cas);
-        		
-        		if (podatek > povprecje+50){
+        		long trenutniCas = System.currentTimeMillis() - zacetniCas;
+        		int mestoVSeznamu = (int) trenutniCas*dolzina/dolzinaPesmi;
+        		//*if (podatek > povprecje+50){
         			Color barva = new Color(podatek);
         			anim.setBackground(barva);
 
         			
-        		}
+        		//}
         		
         		Animacija.st = Math.abs(podatek);
-        		Animacija.kotnahitrost = podatek2;//namesto podatek2 vstaviš vrednost hitrosti.
+        		Animacija.kotnahitrost = podatek2/8;//namesto podatek2 vstaviš vrednost hitrosti.
         		
         		
         		System.out.println(podatek2);

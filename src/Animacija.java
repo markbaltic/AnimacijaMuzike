@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Animacija extends JPanel implements ActionListener, KeyListener {
-	public int cas = 5;
+	public int cas = 20;
 	public static int st = 0; //stevilo, ki ga dobimo iz podatkov iz glasbene datoteke
 	public static int kotnahitrost = 0;
 	public static String oblika = "krog";
@@ -35,48 +35,51 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		g.setColor(Color.BLUE);
-		if(oblika == "krog")
-		{	//g.fillRect(150, 150, 300, 300);
-			n = 5000; // razdeliš ravnino na kote - vpliva na kotno hitrost
-			double X = 300;
-			double Y = 300;
-			int R = 80;
-			
-//			g.drawOval(300, 300, r, r);
-//			g.drawOval(300-r, 300-r, r, r);
-//			g.drawOval(300-r, 300, r, r);
-//			g.drawOval(300, 300-r, r, r);
-			g.drawLine(300, 0, 300, 600);
-			g.drawLine(0, 300, 600, 300);
-//			g.fillOval(150, 150, 300, 300);
-			g.fillOval((int)((X-R)+(R/2+r)*Math.cos((Math.PI*2*(w)/n))), (int) ((Y-R)+(R/2+r)*Math.sin(-Math.PI*2*(w)/n)), 2*R, 2*R);
-			g.fillOval((int)((X-R)+(R/2+r)*Math.sin((Math.PI*2*(w)/n))), (int) ((Y-R)+(R/2+r)*Math.cos(-Math.PI*2*(w)/n)), 2*R, 2*R);
-			g.fillOval((int)((X-R)-(R/2+r)*Math.cos((Math.PI*2*(w)/n))), (int) ((Y-R)-(R/2+r)*Math.sin(-Math.PI*2*(w)/n)), 2*R, 2*R);
-			g.fillOval((int)((X-R)-(R/2+r)*Math.sin((Math.PI*2*(w)/n))), (int) ((Y-R)-(R/2+r)*Math.cos(-Math.PI*2*(w)/n)), 2*R, 2*R);
-
-
-
-//			g.fillOval(300-r, 300, 150, 150);
-//			g.fillOval(300, 300-r, 150, 150);
-			
-//			g.fillOval((int)(300+r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)), 150, 150);
-		}
-		else
-		{
-		n = 10000;// razdeliš ravnino na kote - vpliva na kotno hitrost
-		g.drawLine(300, 300, (int)(300+r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)));//riše desno èrto
-		g.drawLine(300, 300, (int)(300-r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)));// riše levo èrto
-		g.drawLine(300, 300, (int)(300-r),(int) (300+r));
-		g.drawLine(300, 300, (int)(300-r),(int) (300-r));
-		g.drawLine(300, 300, (int)(300+r),(int) (300+r));
-		g.drawLine(300, 300, (int)(300+r),(int) (300-r));
-		g.drawLine(300, 300, (int)(300-r),300);
-		g.drawLine(300, 300, (int)(300+r),300);
-		g.drawLine(300, 300, 300,(int) (300+r));
-		g.drawLine(300, 300, 300,(int) (300-r));
+		g.setColor(Color.RED);
 		
-		}
+		
+		g.fillOval(150+r, 150+r, 300+r, 300+r);
+//		if(oblika == "krog")
+//		{	//g.fillRect(150, 150, 300, 300);
+//			n = 50000; // razdeliš ravnino na kote - vpliva na kotno hitrost
+//			double X = 300;
+//			double Y = 300;
+//			int R = 80;
+//			
+////			g.drawOval(300, 300, r, r);
+////			g.drawOval(300-r, 300-r, r, r);
+////			g.drawOval(300-r, 300, r, r);
+////			g.drawOval(300, 300-r, r, r);
+//			g.drawLine(300, 0, 300, 600);
+//			g.drawLine(0, 300, 600, 300);
+////			g.fillOval(150, 150, 300, 300);
+//			g.fillOval((int)((X-R)+(R/2+r)*Math.cos((Math.PI*2*(w)/n))), (int) ((Y-R)+(R/2+r)*Math.sin(-Math.PI*2*(w)/n)), 2*R, 2*R);
+//			g.fillOval((int)((X-R)+(R/2+r)*Math.sin((Math.PI*2*(w)/n))), (int) ((Y-R)+(R/2+r)*Math.cos(-Math.PI*2*(w)/n)), 2*R, 2*R);
+//			g.fillOval((int)((X-R)-(R/2+r)*Math.cos((Math.PI*2*(w)/n))), (int) ((Y-R)-(R/2+r)*Math.sin(-Math.PI*2*(w)/n)), 2*R, 2*R);
+//			g.fillOval((int)((X-R)-(R/2+r)*Math.sin((Math.PI*2*(w)/n))), (int) ((Y-R)-(R/2+r)*Math.cos(-Math.PI*2*(w)/n)), 2*R, 2*R);
+//
+//
+//
+////			g.fillOval(300-r, 300, 150, 150);
+////			g.fillOval(300, 300-r, 150, 150);
+//			
+////			g.fillOval((int)(300+r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)), 150, 150);
+//		}
+//		else
+//		{
+//		n = 100000;// razdeliš ravnino na kote - vpliva na kotno hitrost
+//		g.drawLine(300, 300, (int)(300+r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)));//riše desno èrto
+//		g.drawLine(300, 300, (int)(300-r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)));// riše levo èrto
+//		g.drawLine(300, 300, (int)(300-r),(int) (300+r));
+//		g.drawLine(300, 300, (int)(300-r),(int) (300-r));
+//		g.drawLine(300, 300, (int)(300+r),(int) (300+r));
+//		g.drawLine(300, 300, (int)(300+r),(int) (300-r));
+//		g.drawLine(300, 300, (int)(300-r),300);
+//		g.drawLine(300, 300, (int)(300+r),300);
+//		g.drawLine(300, 300, 300,(int) (300+r));
+//		g.drawLine(300, 300, 300,(int) (300-r));
+//		
+//		}
 
 	}
 	
