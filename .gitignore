@@ -2,4 +2,4 @@
 .classpath
 /bin/
 /bin/
-.wav
+*.wav

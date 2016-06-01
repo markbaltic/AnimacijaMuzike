@@ -98,7 +98,7 @@ public class Test {
         int dolzinaPesmi = (int) awc.dolzinaPesmi();
         int cas = (int) ((((dolzinaPesmi))/dolzina)*1000);
         long zacetniCas = System.currentTimeMillis();
-        System.out.println(dolzina);
+
         try {        	
         	//for (int i=0; i < dolzina; i++){        		
         	
