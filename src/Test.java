@@ -30,10 +30,24 @@ public class Test {
 	static Pretvornik pDatoteka = new Pretvornik(datoteka);
 
 	public static void main(String[] args) throws Exception {
-		
+		//Dobim podatke iz pesmi
 		String petvorjenaDatoteka = pDatoteka.pretvorimp3towav();
-		System.out.println(petvorjenaDatoteka);
-		Animacija anim = new Animacija(null);
+		System.out.println(petvorjenaDatoteka + ":ime glasbene datoteke");
+		AudioWaveformCreator awc = new AudioWaveformCreator(petvorjenaDatoteka);
+		int[] seznamAmplitud = awc.createAudioInputStream();
+		int dolzinaSeznamaAmplitud = seznamAmplitud.length;
+		System.out.println(seznamAmplitud.length + ": dolzina seznama amplitud");
+        int dolzinaPesmi = (int) awc.dolzinaPesmi();
+        System.out.println(dolzinaPesmi + ": dolzina pesmi v sekundah");
+        int cas = (int) ((((dolzinaPesmi))/dolzinaSeznamaAmplitud)*1000); // Je smiselno to imet, Ëe ne bomo imeli Thread.sleep ?
+        long zacetniCas = 0;
+        
+        
+        
+        
+		
+
+		Animacija anim = new Animacija(seznamAmplitud);
 		anim.setBackground(Color.ORANGE);
 		
 		JFrame okno = new JFrame();
@@ -69,7 +83,7 @@ public class Test {
 		
 		
 		
-		AudioWaveformCreator awc = new AudioWaveformCreator(petvorjenaDatoteka);
+		
         try {
             File yourFile = new File(petvorjenaDatoteka);
             AudioInputStream stream;
@@ -83,29 +97,28 @@ public class Test {
             clip = (Clip) AudioSystem.getLine(info);
             clip.open(stream);
             clip.start();
+            zacetniCas = System.currentTimeMillis();
         }
         catch (Exception e) {
             System.out.println("Napaka");
         }
         
-        int[] seznam = awc.createAudioInputStream();
-        System.out.println(seznam.length + "trara");
-        int dolzina = seznam.length;
+        
+        
+        
         //double povprecje = awc.vsota/dolzina;
         //System.out.println("Povpreƒçje: " + povprecje);
         //System.out.println(awc.duration);
         
-        int dolzinaPesmi = (int) awc.dolzinaPesmi();
-        int cas = (int) ((((dolzinaPesmi))/dolzina)*1000);
-        long zacetniCas = System.currentTimeMillis();
+
 
         try {        	
         	//for (int i=0; i < dolzina; i++){        		
         	
         	Thread.sleep(cas);
         	long trenutniCas = System.currentTimeMillis() - zacetniCas;
-        	int mestoVSeznamu = (int) trenutniCas*dolzina/dolzinaPesmi;
-        	int podatek = seznam[mestoVSeznamu];
+        	int mestoVSeznamu = (int) Math.abs(trenutniCas*dolzinaSeznamaAmplitud/dolzinaPesmi); //TA JE BIL NEGATIVEN. ZAKAJ???
+        	int podatek = seznamAmplitud[mestoVSeznamu];
         	
         	Color barva = new Color(podatek);
         	anim.setBackground(barva);

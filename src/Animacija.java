@@ -91,8 +91,9 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent e) //na vsake "cas = 5ms" se izvede ta akcija (prišteje se kot) in potem se poklièe repaint();
 	{
+		
 		r = st*st/100;
-		System.out.println(st);
+		System.out.println(st + ":st");
 		w += kotnahitrost;
 		if(r<0)
 		{

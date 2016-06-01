@@ -33,7 +33,6 @@ public class Pretvornik {
 		if (pravilnostDatoteke()){
 			Converter converter = new Converter();
 			converter.convert(datoteka, datoteka + ".wav");
-			System.out.println(datoteka +".wav");
 			return (datoteka + ".wav");
 		}
 		else{
