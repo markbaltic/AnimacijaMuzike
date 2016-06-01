@@ -35,7 +35,7 @@ public class Test {
 		
 		String petvorjenaDatoteka = pDatoteka.pretvorimp3towav();
 		System.out.println(petvorjenaDatoteka);
-		Animacija anim = new Animacija();
+		Animacija anim = new Animacija(null);
 		anim.setBackground(Color.ORANGE);
 		
 		JFrame okno = new JFrame();
@@ -71,7 +71,7 @@ public class Test {
 		
 		
 		
-		AudioWaveformCreator awc = new AudioWaveformCreator(petvorjenaDatoteka, "test.png");
+		AudioWaveformCreator awc = new AudioWaveformCreator(petvorjenaDatoteka);
         try {
             File yourFile = new File(petvorjenaDatoteka);
             AudioInputStream stream;
@@ -90,36 +90,36 @@ public class Test {
             System.out.println("Napaka");
         }
         
-        awc.createAudioInputStream();
-//        int dolzina = awc.audioData.size(); ??????????????????????????
-        double povprecje = awc.vsota/dolzina;
-        System.out.println("Povprečje: " + povprecje);
-        System.out.println(awc.duration);
-        int cas = (int) ((((awc.duration))/dolzina)*1000);
-        int dolzinaPesmi = (int) awc.duration*1000;
+        int[] seznam = awc.createAudioInputStream();
+        System.out.println(seznam.length + "trara");
+        int dolzina = seznam.length;
+        //double povprecje = awc.vsota/dolzina;
+        //System.out.println("Povprečje: " + povprecje);
+        //System.out.println(awc.duration);
+        
+        int dolzinaPesmi = (int) awc.dolzinaPesmi();
+        int cas = (int) ((((dolzinaPesmi))/dolzina)*1000);
         long zacetniCas = System.currentTimeMillis();
         System.out.println(dolzina);
         try {        	
-        	for (int i=0; i < dolzina; i++){
-        		Vector<Integer> podatek1 = awc.sezVektorjev.get(i);
-        		int podatek = awc.seznam.get(i);
-        		int podatek2 = podatek1.get(1);
-        		Thread.sleep(cas);
-        		long trenutniCas = System.currentTimeMillis() - zacetniCas;
-        		int mestoVSeznamu = (int) trenutniCas*dolzina/dolzinaPesmi;
-        		//*if (podatek > povprecje+50){
-        			Color barva = new Color(podatek);
-        			anim.setBackground(barva);
+        	//for (int i=0; i < dolzina; i++){        		
+        	
+        	Thread.sleep(cas);
+        	long trenutniCas = System.currentTimeMillis() - zacetniCas;
+        	int mestoVSeznamu = (int) trenutniCas*dolzina/dolzinaPesmi;
+        	int podatek = seznam[mestoVSeznamu];
+        	
+        	Color barva = new Color(podatek);
+        	anim.setBackground(barva);
 
         			
-        		//}
         		
-        		Animacija.st = Math.abs(podatek);
-        		Animacija.kotnahitrost = podatek2/8;//namesto podatek2 vstaviš vrednost hitrosti.
+        	Animacija.st = Math.abs(podatek);
+        	Animacija.kotnahitrost = podatek;//namesto podatek2 vstaviš vrednost hitrosti.
         		
         		
-        		System.out.println(podatek2);
-        	}            
+        	
+        	//}            
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }

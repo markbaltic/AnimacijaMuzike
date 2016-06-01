@@ -23,7 +23,7 @@ public final class GlasbenaAnimacija {
         Draw draw1 = new Draw("Test client 1");
 
         
-        AudioWaveformCreator awc = new AudioWaveformCreator("mono_16bit.wav", "test.png");
+        AudioWaveformCreator awc = new AudioWaveformCreator("mono_16bit.wav");
         try {
             File yourFile = new File("mono_16bit.wav");
             AudioInputStream stream;

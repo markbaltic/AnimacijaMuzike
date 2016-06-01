@@ -16,6 +16,7 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	public static int st = 0; //stevilo, ki ga dobimo iz podatkov iz glasbene datoteke
 	public static int kotnahitrost = 0;
 	public static String oblika = "krog";
+	public int[] audioData;
 	
 	Timer tm = new Timer(cas, this); //število pove na koliko ms se izvede funkcija actionPerformed
 	int w=0, velW=0; // w je trenuten kot èrte, velW služi kot HITROST (se prišteva w-ju in tako ga poveèuje). Ko poveèujemo vrednost velW,
@@ -24,11 +25,12 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	int r = 100; //radij
 	
 
-	public Animacija(){ 
+	public Animacija(int[] audioData){ 
 		tm.start();
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
+		this.audioData = audioData;
 		
 	}
 	
