@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
@@ -18,16 +19,20 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.Timer;
 import javax.swing.event.MenuListener;
 
 
 
 public class Test {
 	public static int podatek;
-	static String datoteka2 ="Commercial DEMO - 15.mp3";
-	static String datoteka ="test.mp3";
+	static String datoteka ="Commercial DEMO - 15.mp3";
+	static String datoteka2 ="test.mp3";
 	static String datoteka1 = "";
 	static Pretvornik pDatoteka = new Pretvornik(datoteka);
+	static long zacetniCas = 0;
+
+
 
 	public static void main(String[] args) throws Exception {
 		//Dobim podatke iz pesmi
@@ -40,14 +45,32 @@ public class Test {
         int dolzinaPesmi = (int) awc.dolzinaPesmi();
         System.out.println(dolzinaPesmi + ": dolzina pesmi v sekundah");
         int cas = (int) ((((dolzinaPesmi))/dolzinaSeznamaAmplitud)*1000); // Je smiselno to imet, èe ne bomo imeli Thread.sleep ?
-        long zacetniCas = 0;
         
-        
-        
+        //Predvajam pesem
+        try 
+        {
+            File yourFile = new File(petvorjenaDatoteka);
+            AudioInputStream stream;
+            AudioFormat format;
+            DataLine.Info info;
+            Clip clip;
+
+            stream = AudioSystem.getAudioInputStream(yourFile);
+            format = stream.getFormat();
+            info = new DataLine.Info(Clip.class, format);
+            clip = (Clip) AudioSystem.getLine(info);
+            clip.open(stream);
+            clip.start();
+            zacetniCas = System.currentTimeMillis();
+        }
+        catch (Exception e) 
+        {
+            System.out.println("Napaka");
+        }
         
 		
-
-		Animacija anim = new Animacija(seznamAmplitud);
+        //Naredim okno in zaženem animacijo
+		Animacija anim = new Animacija(seznamAmplitud, zacetniCas, dolzinaPesmi);
 		anim.setBackground(Color.ORANGE);
 		
 		JFrame okno = new JFrame();
@@ -84,24 +107,8 @@ public class Test {
 		
 		
 		
-        try {
-            File yourFile = new File(petvorjenaDatoteka);
-            AudioInputStream stream;
-            AudioFormat format;
-            DataLine.Info info;
-            Clip clip;
+     
 
-            stream = AudioSystem.getAudioInputStream(yourFile);
-            format = stream.getFormat();
-            info = new DataLine.Info(Clip.class, format);
-            clip = (Clip) AudioSystem.getLine(info);
-            clip.open(stream);
-            clip.start();
-            zacetniCas = System.currentTimeMillis();
-        }
-        catch (Exception e) {
-            System.out.println("Napaka");
-        }
         
         
         
@@ -112,28 +119,17 @@ public class Test {
         
 
 
-        try {        	
-        	//for (int i=0; i < dolzina; i++){        		
-        	
-        	Thread.sleep(cas);
-        	long trenutniCas = System.currentTimeMillis() - zacetniCas;
-        	int mestoVSeznamu = (int) Math.abs(trenutniCas*dolzinaSeznamaAmplitud/dolzinaPesmi); //TA JE BIL NEGATIVEN. ZAKAJ???
-        	int podatek = seznamAmplitud[mestoVSeznamu];
-        	
-        	Color barva = new Color(podatek);
-        	anim.setBackground(barva);
+        
 
-        			
-        		
-        	Animacija.st = Math.abs(podatek);
-        	Animacija.kotnahitrost = podatek;//namesto podatek2 vstaviÅ¡ vrednost hitrosti.
-        		
-        		
-        	
-        	//}            
-        } catch(InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
+				
+			
+//		Animacija.st = Math.abs(podatek);
+//		Animacija.kotnahitrost = podatek;//namesto podatek2 vstaviÅ¡ vrednost hitrosti.
 	}
 
-}
+
+
+		
+	}
+
+

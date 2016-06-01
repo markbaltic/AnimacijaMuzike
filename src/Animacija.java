@@ -12,35 +12,46 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Animacija extends JPanel implements ActionListener, KeyListener {
-	public int cas = 20;
-	public static int st = 0; //stevilo, ki ga dobimo iz podatkov iz glasbene datoteke
-	public static int kotnahitrost = 0;
+	public int cas = 37;
+//	public static int st = 0; //stevilo, ki ga dobimo iz podatkov iz glasbene datoteke
+//	public static int kotnahitrost = 0;
 	public static String oblika = "krog";
 	public int[] audioData;
+	public long zacetniCas;
+	public long dolzinaPesmi;
+	public long dolzinaAudioData;
 	
 	Timer tm = new Timer(cas, this); //število pove na koliko ms se izvede funkcija actionPerformed
 	int w=0, velW=0; // w je trenuten kot èrte, velW služi kot HITROST (se prišteva w-ju in tako ga poveèuje). Ko poveèujemo vrednost velW,
 					// pospešimo palico
 	int n = 500; //del kroga
 	int r = 100; //radij
+
 	
 
-	public Animacija(int[] audioData){ 
+	public Animacija(int[] audioData, long zacetniCas, long dolzinaPesmi){ 
 		tm.start();
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 		this.audioData = audioData;
+		this.dolzinaAudioData = audioData.length;
+		this.zacetniCas = zacetniCas;
+		this.dolzinaPesmi = dolzinaPesmi;
 		
 	}
 	
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+		if(r > 0){
 		g.setColor(Color.RED);
+		}
+		else{
+			g.setColor(Color.BLUE);
+		}
 		
-		
-		g.fillOval(150+r, 150+r, 300+r, 300+r);
+		g.fillOval(300-(r/2), 300-(r/2), r, r);
 //		if(oblika == "krog")
 //		{	//g.fillRect(150, 150, 300, 300);
 //			n = 50000; // razdeliš ravnino na kote - vpliva na kotno hitrost
@@ -91,14 +102,25 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent e) //na vsake "cas = 5ms" se izvede ta akcija (prišteje se kot) in potem se poklièe repaint();
 	{
-		
-		r = st*st/100;
-		System.out.println(st + ":st");
-		w += kotnahitrost;
-		if(r<0)
+		long trenutniCas = System.currentTimeMillis() - zacetniCas;
+		int mestoVSeznamu = (int) Math.abs(trenutniCas*dolzinaAudioData/dolzinaPesmi); //TA JE BIL NEGATIVEN. ZAKAJ???
+		int moc = 2000;
+//		if(mestoVSeznamu > 100){
+//		for(int i = -100; i < 100 ; ++i)
+//		{
+//			moc += Math.abs(audioData[mestoVSeznamu + i]);
+//		}
+//		}
+		if(mestoVSeznamu < dolzinaAudioData)
 		{
-		r = 0;
+		r = audioData[mestoVSeznamu]/10;
 		}
+//		System.out.println(st + ":st");
+//		w += kotnahitrost;
+//		if(r<0)
+//		{
+//		r = 0;
+//		}
 		repaint();
 	}
 
