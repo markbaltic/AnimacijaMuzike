@@ -24,8 +24,6 @@ import javax.swing.event.MenuListener;
 
 public class Test {
 	public static int podatek;
-	static String datoteka4 = "03 Gramatik - War Of The Currents.mp3.wav";
-	static String datoteka5 ="mono_16bit.wav";
 	static String datoteka2 ="Commercial DEMO - 15.mp3";
 	static String datoteka ="test.mp3";
 	static String datoteka1 = "";

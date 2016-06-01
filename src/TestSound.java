@@ -11,7 +11,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class TestSound {
 
 	public static void main(String[] args) throws Exception {
-		AudioWaveformCreator awc = new AudioWaveformCreator("mono_16bit.wav", "test.png");
+		AudioWaveformCreator awc = new AudioWaveformCreator("mono_16bit.wav");
         try {
             File yourFile = new File("mono_16bit.wav");
             AudioInputStream stream;
