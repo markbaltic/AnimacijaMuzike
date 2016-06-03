@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Vector;
 
@@ -26,9 +27,9 @@ import javax.swing.event.MenuListener;
 
 public class Test {
 	public static int podatek;
-	static String datoteka ="Commercial DEMO - 15.mp3";
-	static String datoteka2 ="test.mp3";
-	static String datoteka1 = "";
+	static String datoteka2 ="Commercial DEMO - 15.mp3";
+	static String datoteka1 ="test.mp3";
+	static String datoteka = "03 Gramatik - War Of The Currents.mp3.wav";
 	static Pretvornik pDatoteka = new Pretvornik(datoteka);
 	static long zacetniCas = 0;
 
@@ -46,6 +47,24 @@ public class Test {
         System.out.println(dolzinaPesmi + ": dolzina pesmi v sekundah");
         int cas = (int) ((((dolzinaPesmi))/dolzinaSeznamaAmplitud)*1000); // Je smiselno to imet, èe ne bomo imeli Thread.sleep ?
         
+        //Naredi seznam energij
+        ArrayList<Integer> seznamEnergij = new ArrayList<Integer>(dolzinaSeznamaAmplitud/100);
+        int stevec = 0;
+        int energija = 0;
+        for (int i: seznamAmplitud){
+        	if(stevec < 1000)
+        	{
+        		energija += i*i;
+        		++ stevec;
+        	}
+        	else
+        	{
+        		seznamEnergij.add(energija);
+        		energija = 0;
+        		stevec=0;
+        	}
+        	
+        }
         //Predvajam pesem
         try 
         {
@@ -70,7 +89,7 @@ public class Test {
         
 		
         //Naredim okno in zaženem animacijo
-		Animacija anim = new Animacija(seznamAmplitud, zacetniCas, dolzinaPesmi);
+		Animacija anim = new Animacija(seznamEnergij, zacetniCas, dolzinaPesmi);
 		anim.setBackground(Color.ORANGE);
 		
 		JFrame okno = new JFrame();

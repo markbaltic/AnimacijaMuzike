@@ -118,6 +118,7 @@ public class AudioWaveformCreator {
     
     }
     
+    //for (int i; i<leni++)
     public double dolzinaPesmi() throws UnsupportedAudioFileException, IOException{
     	audioInputStream = AudioSystem.getAudioInputStream(this.file);
     	long milliseconds = (long)((audioInputStream.getFrameLength() * 1000) / audioInputStream.getFormat().getFrameRate());

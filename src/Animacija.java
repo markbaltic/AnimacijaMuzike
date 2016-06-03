@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,7 +17,7 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 //	public static int st = 0; //stevilo, ki ga dobimo iz podatkov iz glasbene datoteke
 //	public static int kotnahitrost = 0;
 	public static String oblika = "krog";
-	public int[] audioData;
+	public ArrayList<Integer> audioData;
 	public long zacetniCas;
 	public long dolzinaPesmi;
 	public long dolzinaAudioData;
@@ -29,13 +30,13 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 
 	
 
-	public Animacija(int[] audioData, long zacetniCas, long dolzinaPesmi){ 
+	public Animacija(ArrayList<Integer> audioData, long zacetniCas, long dolzinaPesmi){ 
 		tm.start();
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 		this.audioData = audioData;
-		this.dolzinaAudioData = audioData.length;
+		this.dolzinaAudioData = audioData.size();
 		this.zacetniCas = zacetniCas;
 		this.dolzinaPesmi = dolzinaPesmi;
 		
@@ -113,7 +114,8 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 //		}
 		if(mestoVSeznamu < dolzinaAudioData)
 		{
-		r = audioData[mestoVSeznamu]/10;
+		//r = audioData[mestoVSeznamu]/10;
+			r = (int) Math.sqrt(audioData.get(mestoVSeznamu))/500;
 		}
 //		System.out.println(st + ":st");
 //		w += kotnahitrost;
