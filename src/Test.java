@@ -28,8 +28,8 @@ import javax.swing.event.MenuListener;
 public class Test {
 	public static int podatek;
 	static String datoteka2 ="Commercial DEMO - 15.mp3";
-	static String datoteka1 ="test.mp3";
-	static String datoteka = "03 Gramatik - War Of The Currents.mp3.wav";
+	static String datoteka ="test.mp3.wav";
+	static String datoteka1 = "03 Gramatik - War Of The Currents.mp3.wav";
 	static Pretvornik pDatoteka = new Pretvornik(datoteka);
 	static long zacetniCas = 0;
 
@@ -52,9 +52,9 @@ public class Test {
         int stevec = 0;
         int energija = 0;
         for (int i: seznamAmplitud){
-        	if(stevec < 1000)
+        	if(stevec < 100)
         	{
-        		energija += i*i;
+        		energija += i*i/((100-stevec)*(100-stevec));
         		++ stevec;
         	}
         	else

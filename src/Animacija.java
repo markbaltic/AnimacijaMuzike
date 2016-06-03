@@ -115,7 +115,7 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 		if(mestoVSeznamu < dolzinaAudioData)
 		{
 		//r = audioData[mestoVSeznamu]/10;
-			r = (int) Math.sqrt(audioData.get(mestoVSeznamu))/500;
+			r = (int) Math.sqrt(audioData.get(mestoVSeznamu))/50;
 		}
 //		System.out.println(st + ":st");
 //		w += kotnahitrost;
