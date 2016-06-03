@@ -16,12 +16,16 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.AbstractAction;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.event.MenuListener;
+
+import javazoom.jl.decoder.JavaLayerException;
 
 
 
@@ -32,23 +36,26 @@ public class Test {
 	static String datoteka1 = "03 Gramatik - War Of The Currents.mp3.wav";
 	static Pretvornik pDatoteka = new Pretvornik(datoteka);
 	static long zacetniCas = 0;
-
-
-
-	public static void main(String[] args) throws Exception {
+	static int dolzinaSeznamaAmplitud;
+	static ArrayList<Integer> seznamEnergij;
+	static Animacija anim;
+	static Clip clip;
+	
+	public static void play(String datoteka) throws Exception{
 		//Dobim podatke iz pesmi
+		Test.datoteka = datoteka;
 		String petvorjenaDatoteka = pDatoteka.pretvorimp3towav();
 		System.out.println(petvorjenaDatoteka + ":ime glasbene datoteke");
 		AudioWaveformCreator awc = new AudioWaveformCreator(petvorjenaDatoteka);
 		int[] seznamAmplitud = awc.createAudioInputStream();
-		int dolzinaSeznamaAmplitud = seznamAmplitud.length;
+		dolzinaSeznamaAmplitud = seznamAmplitud.length;
 		System.out.println(seznamAmplitud.length + ": dolzina seznama amplitud");
         int dolzinaPesmi = (int) awc.dolzinaPesmi();
         System.out.println(dolzinaPesmi + ": dolzina pesmi v sekundah");
-        int cas = (int) ((((dolzinaPesmi))/dolzinaSeznamaAmplitud)*1000); // Je smiselno to imet, èe ne bomo imeli Thread.sleep ?
-        
-        //Naredi seznam energij
-        ArrayList<Integer> seznamEnergij = new ArrayList<Integer>(dolzinaSeznamaAmplitud/100);
+        int cas = (int) ((((dolzinaPesmi))/dolzinaSeznamaAmplitud)*1000); // Je smiselno to imet, ï¿½e ne bomo imeli Thread.sleep ?
+		
+      //Naredi seznam energij
+        seznamEnergij = new ArrayList<Integer>(dolzinaSeznamaAmplitud/100);
         int stevec = 0;
         int energija = 0;
         for (int i: seznamAmplitud){
@@ -65,21 +72,24 @@ public class Test {
         	}
         	
         }
-        //Predvajam pesem
+        
+      //Predvajam pesem
         try 
         {
             File yourFile = new File(petvorjenaDatoteka);
             AudioInputStream stream;
             AudioFormat format;
             DataLine.Info info;
-            Clip clip;
+            
 
             stream = AudioSystem.getAudioInputStream(yourFile);
             format = stream.getFormat();
             info = new DataLine.Info(Clip.class, format);
             clip = (Clip) AudioSystem.getLine(info);
             clip.open(stream);
+            
             clip.start();
+            
             zacetniCas = System.currentTimeMillis();
         }
         catch (Exception e) 
@@ -87,10 +97,24 @@ public class Test {
             System.out.println("Napaka");
         }
         
+     // Zagon animacije
+    	anim = new Animacija(seznamEnergij, zacetniCas, dolzinaPesmi);
+    	anim.setBackground(Color.ORANGE);
+        
+	}
+	
+	
+	 
+
+
+
+	public static void main(String[] args) throws Exception {		
+		play(datoteka); 
+
+        
 		
-        //Naredim okno in zaženem animacijo
-		Animacija anim = new Animacija(seznamEnergij, zacetniCas, dolzinaPesmi);
-		anim.setBackground(Color.ORANGE);
+        //Naredim okno in zaï¿½enem animacijo
+		
 		
 		JFrame okno = new JFrame();
 		
@@ -115,8 +139,32 @@ public class Test {
 				Animacija.oblika = "crta";
 			}
 		});
+		
+		JMenuItem datoteka1 = new JMenuItem(new AbstractAction("Datoteka")
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setCurrentDirectory(new File("test.wav"));
+                int result = fileChooser.showOpenDialog(new JPanel());
+                if (result != JFileChooser.APPROVE_OPTION) {
+                    System.exit(0);
+                }
+                Test.datoteka = fileChooser.getSelectedFile().getPath();
+                try {
+                	clip.stop();
+					play(datoteka);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+                System.out.println(datoteka);
+			}
+		});
+		
 		fileMenu.add(krog);
 		fileMenu.add(crta);
+		fileMenu.add(datoteka1);
 
 		
 		okno.setJMenuBar(menuBar);

@@ -29,7 +29,7 @@ public class Pretvornik {
 		}
 	}
 	
-	public static String pretvorimp3towav() throws JavaLayerException{
+	public String pretvorimp3towav() throws JavaLayerException{
 		if (pravilnostDatoteke()){
 			Converter converter = new Converter();
 			converter.convert(datoteka, datoteka + ".wav");
