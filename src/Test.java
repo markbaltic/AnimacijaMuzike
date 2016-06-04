@@ -32,9 +32,10 @@ import javazoom.jl.decoder.JavaLayerException;
 public class Test {
 	public static int podatek;
 	static String datoteka2 ="Commercial DEMO - 15.mp3";
-	static String datoteka ="test.mp3.wav";
-	static String datoteka1 = "03 Gramatik - War Of The Currents.mp3.wav";
-	static Pretvornik pDatoteka = new Pretvornik(datoteka);
+	static String datoteka3 = "test.mp3.wav";
+	static String datoteka1 = "03 Gramatik - War Of The Currents.mp3";
+	static String datoteka = "test3.wav";
+	static Pretvornik pDatoteka;
 	static long zacetniCas = 0;
 	static int dolzinaSeznamaAmplitud;
 	static ArrayList<Integer> seznamEnergij;
@@ -43,8 +44,9 @@ public class Test {
 	
 	public static void play(String datoteka) throws Exception{
 		//Dobim podatke iz pesmi
-		Test.datoteka = datoteka;
-		String petvorjenaDatoteka = pDatoteka.pretvorimp3towav();
+		//Test.datoteka = datoteka;
+		pDatoteka = new Pretvornik(datoteka);
+		String petvorjenaDatoteka = pDatoteka.pretvorimp3towav(datoteka);
 		System.out.println(petvorjenaDatoteka + ":ime glasbene datoteke");
 		AudioWaveformCreator awc = new AudioWaveformCreator(petvorjenaDatoteka);
 		int[] seznamAmplitud = awc.createAudioInputStream();
@@ -100,6 +102,9 @@ public class Test {
      // Zagon animacije
     	anim = new Animacija(seznamEnergij, zacetniCas, dolzinaPesmi);
     	anim.setBackground(Color.ORANGE);
+    	
+    	
+    			
         
 	}
 	
@@ -112,8 +117,7 @@ public class Test {
 		play(datoteka); 
 
         
-		
-        //Naredim okno in za�enem animacijo
+		//Naredim okno in za�enem animacijo
 		
 		
 		JFrame okno = new JFrame();
@@ -145,20 +149,21 @@ public class Test {
 			public void actionPerformed(ActionEvent e)
 			{
 				JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setCurrentDirectory(new File("test.wav"));
+                fileChooser.setCurrentDirectory(new File(""));
                 int result = fileChooser.showOpenDialog(new JPanel());
                 if (result != JFileChooser.APPROVE_OPTION) {
                     System.exit(0);
                 }
                 Test.datoteka = fileChooser.getSelectedFile().getPath();
                 try {
+                	//Tu je potrebno animacijo nekako ustaviti in jo pognati na novo.
                 	clip.stop();
-					play(datoteka);
+					play(Test.datoteka);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-                System.out.println(datoteka);
+                System.out.println(Test.datoteka);
 			}
 		});
 		
@@ -169,7 +174,7 @@ public class Test {
 		
 		okno.setJMenuBar(menuBar);
 		okno.setVisible(true);
-		
+        
 		
 		
 		
