@@ -31,10 +31,10 @@ import javazoom.jl.decoder.JavaLayerException;
 
 public class Test {
 	public static int podatek;
-	static String datoteka2 ="Commercial DEMO - 15.mp3";
-	static String datoteka3 = "test.mp3.wav";
+	static String datoteka ="Commercial DEMO - 15.mp3.wav";
+	static String datoteka2 = "test.mp3.wav";
 	static String datoteka1 = "03 Gramatik - War Of The Currents.mp3";
-	static String datoteka = "test3.wav";
+	static String datoteka4 = "test3.wav";
 	static Pretvornik pDatoteka;
 	static long zacetniCas = 0;
 	static int dolzinaSeznamaAmplitud;
@@ -57,23 +57,26 @@ public class Test {
         int cas = (int) ((((dolzinaPesmi))/dolzinaSeznamaAmplitud)*1000); // Je smiselno to imet, �e ne bomo imeli Thread.sleep ?
 		
       //Naredi seznam energij
-        seznamEnergij = new ArrayList<Integer>(dolzinaSeznamaAmplitud/100);
-        int stevec = 0;
-        int energija = 0;
-        for (int i: seznamAmplitud){
-        	if(stevec < 100)
-        	{
-        		energija += i*i/((100-stevec)*(100-stevec));
-        		++ stevec;
-        	}
-        	else
-        	{
-        		seznamEnergij.add(energija);
-        		energija = 0;
-        		stevec=0;
-        	}
-        	
-        }
+//        int interval = 1000;
+//        seznamEnergij = new ArrayList<Integer>(dolzinaSeznamaAmplitud/interval);
+//        int stevec = 0;
+//        int energija = 0;
+//        
+//        for (int i: seznamAmplitud){
+//        	if(stevec < interval)
+//        	{
+//        		//energija += i*i/((interval-stevec)*(interval-stevec));
+//        		energija += Math.abs(i);
+//        		++ stevec;
+//        	}
+//        	else
+//        	{
+//        		seznamEnergij.add(energija);
+//        		energija = 0;
+//        		stevec=0;
+//        	}
+//        	
+//        }
         
       //Predvajam pesem
         try 
@@ -100,7 +103,7 @@ public class Test {
         }
         
      // Zagon animacije
-    	anim = new Animacija(seznamEnergij, zacetniCas, dolzinaPesmi);
+    	anim = new Animacija(seznamAmplitud, zacetniCas, dolzinaPesmi);
     	anim.setBackground(Color.ORANGE);
     	
     	
@@ -120,7 +123,7 @@ public class Test {
 		//Naredim okno in za�enem animacijo
 		
 		
-		JFrame okno = new JFrame();
+		final JFrame okno = new JFrame();
 		
 		okno.setTitle("Animacija Muzike");
 		okno.setSize(600, 600);

@@ -17,7 +17,7 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 //	public static int st = 0; //stevilo, ki ga dobimo iz podatkov iz glasbene datoteke
 //	public static int kotnahitrost = 0;
 	public static String oblika = "krog";
-	public ArrayList<Integer> audioData;
+	public int[] audioData;
 	public long zacetniCas;
 	public long dolzinaPesmi;
 	public long dolzinaAudioData;
@@ -30,13 +30,13 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 
 	
 
-	public Animacija(ArrayList<Integer> audioData, long zacetniCas, long dolzinaPesmi){ 
+	public Animacija(int[] seznamAmplitud, long zacetniCas, long dolzinaPesmi){ 
 		tm.start();
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
-		this.audioData = audioData;
-		this.dolzinaAudioData = audioData.size();
+		this.audioData = seznamAmplitud;
+		this.dolzinaAudioData = seznamAmplitud.length;
 		this.zacetniCas = zacetniCas;
 		this.dolzinaPesmi = dolzinaPesmi;
 		
@@ -45,12 +45,8 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		if(r > 0){
+		int r = this.intenziteta();
 		g.setColor(Color.RED);
-		}
-		else{
-			g.setColor(Color.BLUE);
-		}
 		
 		g.fillOval(300-(r/2), 300-(r/2), r, r);
 //		if(oblika == "krog")
@@ -98,31 +94,35 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	}
 	
 
+	public int intenziteta()
+	{
+		long trenutniCas = System.currentTimeMillis() - zacetniCas;
+		int mestoVSeznamu = (int) Math.abs(trenutniCas*dolzinaAudioData/dolzinaPesmi);
+		int di = (int) (dolzinaAudioData/dolzinaPesmi); //st podatkov v sekundi
+		int dt = (int) (0.5 * di); //ms
+		double moc = 0;
+		if(mestoVSeznamu < this.dolzinaAudioData)
+		{
+		for(int i = mestoVSeznamu; i > mestoVSeznamu-dt; i--)
+		{
+			moc += Math.abs(this.audioData[i])/(mestoVSeznamu - i + 1);
+			
+		}
+		}
+//		if(mestoVSeznamu < dolzinaAudioData)
+//		{
+//			//r = audioData[mestoVSeznamu]/10;
+//				return (int) audioData[mestoVSeznamu]/50000;
+//			}
+		System.out.println("moc: " + (Math.atan(moc/(dt*dt))*(1200/Math.PI)));
+		return (int) (Math.min(moc,600));
+	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) //na vsake "cas = 5ms" se izvede ta akcija (prišteje se kot) in potem se poklièe repaint();
 	{
-		long trenutniCas = System.currentTimeMillis() - zacetniCas;
-		int mestoVSeznamu = (int) Math.abs(trenutniCas*dolzinaAudioData/dolzinaPesmi); //TA JE BIL NEGATIVEN. ZAKAJ???
-		int moc = 2000;
-//		if(mestoVSeznamu > 100){
-//		for(int i = -100; i < 100 ; ++i)
-//		{
-//			moc += Math.abs(audioData[mestoVSeznamu + i]);
-//		}
-//		}
-		if(mestoVSeznamu < dolzinaAudioData)
-		{
-		//r = audioData[mestoVSeznamu]/10;
-			r = (int) Math.sqrt(audioData.get(mestoVSeznamu))/50;
-		}
-//		System.out.println(st + ":st");
-//		w += kotnahitrost;
-//		if(r<0)
-//		{
-//		r = 0;
-//		}
+
 		repaint();
 	}
 
