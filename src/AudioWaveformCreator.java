@@ -12,6 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class AudioWaveformCreator {
     int vsota = 0;
     public int dolzinaSezStevil;
 	public int[] audioData;
+	
 	
     public AudioWaveformCreator(String fileName) throws UnsupportedAudioFileException, IOException {
         this.file = new File(fileName);
@@ -124,9 +126,19 @@ public class AudioWaveformCreator {
     	long milliseconds = (long)((audioInputStream.getFrameLength() * 1000) / audioInputStream.getFormat().getFrameRate());
         return milliseconds;
     }
+    
+    
+    public void signal() throws UnsupportedAudioFileException, IOException{
+		AudioInputStream in = AudioSystem.getAudioInputStream(AudioSystem.getAudioInputStream(this.file));
+		
+		
+	}
+    
 }
     
     
+
+	
     
     
 

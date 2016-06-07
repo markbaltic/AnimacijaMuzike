@@ -31,9 +31,9 @@ import javazoom.jl.decoder.JavaLayerException;
 
 public class Test {
 	public static int podatek;
-	static String datoteka ="Commercial DEMO - 15.mp3.wav";
+	static String datoteka1 ="Commercial DEMO - 15.mp3.wav";
 	static String datoteka2 = "test.mp3.wav";
-	static String datoteka1 = "03 Gramatik - War Of The Currents.mp3";
+	static String datoteka = "03 Gramatik - War Of The Currents.mp3.wav";
 	static String datoteka4 = "test3.wav";
 	static Pretvornik pDatoteka;
 	static long zacetniCas = 0;
@@ -41,6 +41,7 @@ public class Test {
 	static ArrayList<Integer> seznamEnergij;
 	static Animacija anim;
 	static Clip clip;
+
 	
 	public static void play(String datoteka) throws Exception{
 		//Dobim podatke iz pesmi

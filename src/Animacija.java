@@ -114,8 +114,8 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 //			//r = audioData[mestoVSeznamu]/10;
 //				return (int) audioData[mestoVSeznamu]/50000;
 //			}
-		System.out.println("moc: " + (Math.atan(moc/(dt*dt))*(1200/Math.PI)));
-		return (int) (Math.min(moc,600));
+		System.out.println("moc: " + (Math.atan(moc/(dt*dt))*(1000/Math.PI)));
+		return (int) (Math.pow(Math.atan(moc/(dt*dt))*(1000/Math.PI),1.5)*0.03);
 	}
 
 
