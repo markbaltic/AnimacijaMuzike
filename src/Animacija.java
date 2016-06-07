@@ -98,23 +98,45 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	{
 		long trenutniCas = System.currentTimeMillis() - zacetniCas;
 		int mestoVSeznamu = (int) Math.abs(trenutniCas*dolzinaAudioData/dolzinaPesmi);
-		int di = (int) (dolzinaAudioData/dolzinaPesmi); //st podatkov v sekundi
+		int di = (int) 64;//to mora biti potenca števila 2!!!! (dolzinaAudioData/dolzinaPesmi); //st podatkov v sekundi
 		int dt = (int) (0.5 * di); //ms
 		double moc = 0;
 		if(mestoVSeznamu < this.dolzinaAudioData)
 		{
+		
+		
+		//Complex[] kompSeznam = new Complex[0];
+		//frekvenca.fft(kompleksno);
+		Complex[] kompSeznam = new Complex[dt];
+		int k = 0;
+		Complex kompStevilo1 = new Complex(this.audioData[mestoVSeznamu],0);
+		Complex[] kompSeznam1 = new Complex[1];
+		kompSeznam1[0] = kompStevilo1;
 		for(int i = mestoVSeznamu; i > mestoVSeznamu-dt; i--)
 		{
+			
+			Complex kompStevilo = new Complex(this.audioData[i],0);
+			kompSeznam[k] = kompStevilo;
+			//Complex[] sezStevil;
 			moc += Math.abs(this.audioData[i])/(mestoVSeznamu - i + 1);
+			k ++;
 			
 		}
+		//System.out.println(kompSeznam1);
+		//FFT frekvenca = new FFT();		
+		System.out.println("frekvenca: " + FFT.fft(kompSeznam)[0]);
+		System.out.println("moc: " + (Math.atan(moc/(dt*dt))*(1000/Math.PI)));
+		System.out.println("surovo: " + audioData[mestoVSeznamu]);
 		}
 //		if(mestoVSeznamu < dolzinaAudioData)
 //		{
 //			//r = audioData[mestoVSeznamu]/10;
 //				return (int) audioData[mestoVSeznamu]/50000;
 //			}
-		System.out.println("moc: " + (Math.atan(moc/(dt*dt))*(1000/Math.PI)));
+		
+		//System.out.println("moc: " + (Math.atan(moc/(dt*dt))*(1000/Math.PI)));
+		
+		
 		return (int) (Math.pow(Math.atan(moc/(dt*dt))*(1000/Math.PI),1.5)*0.03);
 	}
 
