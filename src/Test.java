@@ -33,17 +33,20 @@ public class Test {
 	public static int podatek;
 	static String datoteka1 ="Commercial DEMO - 15.mp3.wav";
 	static String datoteka2 = "test.mp3.wav";
-	static String datoteka = "03 Gramatik - War Of The Currents.mp3.wav";
+	static String datoteka5 = "03 Gramatik - War Of The Currents.mp3.wav";
 	static String datoteka4 = "test3.wav";
+	static String datoteka = "1 minute dance music.mp3";
 	static Pretvornik pDatoteka;
 	static long zacetniCas = 0;
 	static int dolzinaSeznamaAmplitud;
 	static ArrayList<Integer> seznamEnergij;
 	static Animacija anim;
 	static Clip clip;
+	static long clipTime = 0; 
+	static long premor = 0;
 
 	
-	public static void play(String datoteka) throws Exception{
+	public static void play(String datoteka, long clipTime) throws Exception{
 		//Dobim podatke iz pesmi
 		//Test.datoteka = datoteka;
 		pDatoteka = new Pretvornik(datoteka);
@@ -94,7 +97,9 @@ public class Test {
             clip = (Clip) AudioSystem.getLine(info);
             clip.open(stream);
             
+            clip.setMicrosecondPosition(clipTime);
             clip.start();
+            
             
             zacetniCas = System.currentTimeMillis();
         }
@@ -103,12 +108,12 @@ public class Test {
             System.out.println("Napaka");
         }
         
-     // Zagon animacije
-    	anim = new Animacija(seznamAmplitud, zacetniCas, dolzinaPesmi);
-    	anim.setBackground(Color.ORANGE);
+
     	
     	
-    	
+        // Zagon animacije
+       	anim.nastaviAnimacijo(seznamAmplitud, zacetniCas, dolzinaPesmi, clipTime);
+       	
     			
         
 	}
@@ -119,7 +124,9 @@ public class Test {
 
 
 	public static void main(String[] args) throws Exception {		
-		play(datoteka); 
+		anim = new Animacija();
+		anim.setBackground(Color.ORANGE);
+		play(datoteka, clipTime); 
 
         
 		//Naredim okno in za�enem animacijo
@@ -127,18 +134,22 @@ public class Test {
 		
 		final JFrame okno = new JFrame();
 		
+		
+		
 		okno.setTitle("Animacija Muzike");
 		okno.setSize(600, 600);
 		okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		okno.add(anim);
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("Oblika");
+		JMenu predvajanje = new JMenu("Predvajanje");
 		menuBar.add(fileMenu);
-		JMenuItem krog = new JMenuItem(new AbstractAction("Krog")
+		menuBar.add(predvajanje);
+		JMenuItem krogi = new JMenuItem(new AbstractAction("Krogi")
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				Animacija.oblika = "krog";
+				Animacija.oblika = "krogi";
 			}
 		});
 		JMenuItem crta = new JMenuItem(new AbstractAction("Crta")
@@ -146,6 +157,48 @@ public class Test {
 			public void actionPerformed(ActionEvent e)
 			{
 				Animacija.oblika = "crta";
+			}
+		});
+		JMenuItem krogec = new JMenuItem(new AbstractAction("Krogec")
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				Animacija.oblika = "krogec";
+			}
+		});
+		JMenuItem pavza = new JMenuItem(new AbstractAction("Pavza")
+		{
+
+
+			public void actionPerformed(ActionEvent e)
+			{
+				
+
+				clipTime= clip.getMicrosecondPosition();
+
+				clip.stop();
+				anim.tm.stop();
+				premor = System.currentTimeMillis();
+				
+
+			}
+		});
+		JMenuItem igraj= new JMenuItem(new AbstractAction("Igraj")
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				
+				if(premor != 0)
+				{
+				premor = System.currentTimeMillis() - premor;
+				
+				clip.setMicrosecondPosition(clipTime);
+				clip.start();
+				anim.zacetniCas += premor;
+				anim.tm.start();
+				clipTime = 0;
+				}
+
 			}
 		});
 		
@@ -156,26 +209,36 @@ public class Test {
 				JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setCurrentDirectory(new File(""));
                 int result = fileChooser.showOpenDialog(new JPanel());
-                if (result != JFileChooser.APPROVE_OPTION) {
-                    System.exit(0);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                	Test.datoteka = fileChooser.getSelectedFile().getPath();
+                	//System.exit(0);
+                    try {
+                    	//Tu je potrebno animacijo nekako ustaviti in jo pognati na novo.
+                    	clip.stop();
+                    	clipTime = 0;
+    					play(Test.datoteka, clipTime);
+    				} catch (Exception e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				}
+                    System.out.println(Test.datoteka);
+
                 }
-                Test.datoteka = fileChooser.getSelectedFile().getPath();
-                try {
-                	//Tu je potrebno animacijo nekako ustaviti in jo pognati na novo.
-                	clip.stop();
-					play(Test.datoteka);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-                System.out.println(Test.datoteka);
-			}
+                else if (result == fileChooser.CANCEL_OPTION){
+                	
+                }
+                //fileChooser.CANCEL_OPTION;
+                
+ 			}
 		});
 		
-		fileMenu.add(krog);
+		fileMenu.add(krogi);
 		fileMenu.add(crta);
-		fileMenu.add(datoteka1);
-
+		fileMenu.add(krogec);
+		
+		predvajanje.add(igraj);
+		predvajanje.add(pavza);
+		predvajanje.add(datoteka1);
 		
 		okno.setJMenuBar(menuBar);
 		okno.setVisible(true);
