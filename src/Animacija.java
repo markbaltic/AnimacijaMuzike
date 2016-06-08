@@ -119,12 +119,16 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 		int dt = (int) (0.5 * di); //ms
 		double moc = 0;
 		double C = 1/(Math.log(1+(dt+1))); //obratna vrednost delne harmoniène vsote
+		Complex[] kompSeznam = new Complex[dt];
 		
 		for(int i = mestoVSeznamu, j = 1; i<dolzinaAudioData && i > mestoVSeznamu-dt; i-- ,j++)
 		{
+			Complex kompStevilo = new Complex(this.audioData[i],0);
+			kompSeznam[j-1] = kompStevilo;
 			moc += audioData[i]*C/j;
 		}
 		
+		//System.out.println("frekvenca: " + FFT.fft(kompSeznam)[0]);
 		
 		return (int) (Math.atan(moc/5000)*600/Math.PI);
 		
