@@ -32,10 +32,10 @@ import javazoom.jl.decoder.JavaLayerException;
 public class Test {
 	public static int podatek;
 	static String datoteka1 ="Commercial DEMO - 15.mp3.wav";
-	static String datoteka2 = "test.mp3.wav";
+	static String datoteka = "test.mp3.wav";
 	static String datoteka5 = "03 Gramatik - War Of The Currents.mp3.wav";
 	static String datoteka4 = "test3.wav";
-	static String datoteka = "1 minute dance music.mp3";
+	static String datoteka7 = "1 minute dance music.mp3";
 	static Pretvornik pDatoteka;
 	static long zacetniCas = 0;
 	static int dolzinaSeznamaAmplitud;

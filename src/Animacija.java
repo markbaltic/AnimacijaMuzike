@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Animacija extends JPanel implements ActionListener, KeyListener {
-	public int cas = 20;
+	public int cas = 37;
 //	public static int st = 0; //stevilo, ki ga dobimo iz podatkov iz glasbene datoteke
 //	public static int kotnahitrost = 0;
 	public static String oblika = "krogi";
@@ -118,14 +118,16 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 		int di = (int) (dolzinaAudioData/dolzinaPesmi); //st podatkov v sekundi,,,   Fourie://64;//to mora biti potenca števila 2!!!! 
 		int dt = (int) (0.5 * di); //ms
 		double moc = 0;
-		double C = 1/(Math.log(1+(dt+1))); //obratna vrednost delne harmoniène vsote
-		Complex[] kompSeznam = new Complex[dt];
+		double C = 1/(Math.log(1+(dt+1))); //obratna vrednost delne harmoniène vrste
+		double G = 1/((1-Math.pow(0.5, dt))*2); //obratna vrednost delne geometrijske vrste
+//		Complex[] kompSeznam = new Complex[dt];
 		
 		for(int i = mestoVSeznamu, j = 1; i<dolzinaAudioData && i > mestoVSeznamu-dt; i-- ,j++)
 		{
-			Complex kompStevilo = new Complex(this.audioData[i],0);
-			kompSeznam[j-1] = kompStevilo;
-			moc += audioData[i]*C/j;
+//			Complex kompStevilo = new Complex(this.audioData[i],0);
+//			kompSeznam[j-1] = kompStevilo;
+//			moc += audioData[i]*C/j; //z uporabo harmoniène vrste
+			moc += audioData[i]*G/(Math.pow(2, j)); //z uporavo geometrijske vrste
 		}
 		
 		//System.out.println("frekvenca: " + FFT.fft(kompSeznam)[0]);
