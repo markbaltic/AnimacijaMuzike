@@ -127,7 +127,8 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 //			Complex kompStevilo = new Complex(this.audioData[i],0);
 //			kompSeznam[j-1] = kompStevilo;
 //			moc += audioData[i]*C/j; //z uporabo harmoniène vrste
-			moc += audioData[i]*G/(Math.pow(2, j)); //z uporavo geometrijske vrste
+//			moc += audioData[i]*G/(Math.pow(2, j)); //z uporavo geometrijske vrste
+			moc += audioData[i]/500; //konstantna utež
 		}
 		
 		//System.out.println("frekvenca: " + FFT.fft(kompSeznam)[0]);
