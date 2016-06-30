@@ -1,27 +1,23 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.Vector;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Animacija extends JPanel implements ActionListener, KeyListener {
+public class Animacija extends JPanel implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public int cas = 37;
-//	public static int st = 0; //stevilo, ki ga dobimo iz podatkov iz glasbene datoteke
-//	public static int kotnahitrost = 0;
 	public static String oblika = "tocke";
 	public int[] audioData;
 	public long zacetniCas;
 	public long dolzinaPesmi;
 	public long dolzinaAudioData;
+	private int ft = 512; //Fourier: to mora biti potenca števila 2
 	Complex[] kompSeznam;
 	
 	public Timer tm = new Timer(cas, this); //število pove na koliko ms se izvede funkcija actionPerformed
@@ -32,9 +28,8 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 
 	
 
-	public Animacija(){ 
-		
-		addKeyListener(this);
+	public Animacija(){ 		
+
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 		
@@ -43,7 +38,6 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	
 	public void nastaviAnimacijo(int[] seznamAmplitud, long zacetniCas, long dolzinaPesmi, long clipTime){
 		tm.stop();
-		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 		this.audioData = seznamAmplitud;
@@ -66,41 +60,29 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 		
 		
 		if(oblika == "krogi")
-		{	//g.fillRect(150, 150, 300, 300);
+		{	
 			n = 500; // razdeliš ravnino na kote - vpliva na kotno hitrost
 			double X = 300;
 			double Y = 300;
 			int R = 40;
 			
-//			g.drawOval(300, 300, r, r);
-//			g.drawOval(300-r, 300-r, r, r);
-//			g.drawOval(300-r, 300, r, r);
-//			g.drawOval(300, 300-r, r, r);
-//			g.drawLine(300, 0, 300, 600);
-//			g.drawLine(0, 300, 600, 300);
-//			g.fillOval(150, 150, 300, 300);
 			g.fillOval((int)((X-R)+(R/2+r)*Math.cos((Math.PI*2*(w)/n))), (int) ((Y-R)+(R/2+r)*Math.sin(-Math.PI*2*(w)/n)), 2*R, 2*R);
 			g.fillOval((int)((X-R)+(R/2+r)*Math.sin((Math.PI*2*(w)/n))), (int) ((Y-R)+(R/2+r)*Math.cos(-Math.PI*2*(w)/n)), 2*R, 2*R);
 			g.fillOval((int)((X-R)-(R/2+r)*Math.cos((Math.PI*2*(w)/n))), (int) ((Y-R)-(R/2+r)*Math.sin(-Math.PI*2*(w)/n)), 2*R, 2*R);
 			g.fillOval((int)((X-R)-(R/2+r)*Math.sin((Math.PI*2*(w)/n))), (int) ((Y-R)-(R/2+r)*Math.cos(-Math.PI*2*(w)/n)), 2*R, 2*R);
 
-
-
-//			g.fillOval(300-r, 300, 150, 150);
-//			g.fillOval(300, 300-r, 150, 150);
-			
-//			g.fillOval((int)(300+r*Math.cos((Math.PI*2*(w)/n))),(int) (300+r*Math.sin(-Math.PI*2*(w)/n)), 150, 150);
 		}
 		else if(oblika == "krogec")
 		{			
 				g.fillOval(300-(r/2), 300-(r/2), r, r);
 		}
 		else if(oblika == "fft")
-		{		int stevec = 9;
+		{		int konstanta = (int) 600/ft;
+				int stevec = (600- ft )/2;
 				for(Complex z : l)
 				{
 					g.drawLine(stevec, 600, stevec,(int) (600-(Math.atan((z.abs())/4000)*600/Math.PI)));
-					stevec += 18;
+					stevec += konstanta;
 				}
 
 		}
@@ -109,7 +91,7 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 				for(Complex z : l)
 				{
 					g.fillOval((int)(300+(Math.atan((z.re)/4000)*600/Math.PI)),(int) (300+(Math.atan((z.im)/4000)*600/Math.PI)), 10, 10);
-					//System.out.println("im: " + z.im);
+
 					
 				}
 				
@@ -121,7 +103,6 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 				for(Complex z : l)
 				{
 					g.drawLine(x, y, (int)(300+(Math.atan((z.re)/4000)*600/Math.PI)), (int) (300+(Math.atan((z.im)/4000)*600/Math.PI)));
-					//System.out.println("im: " + z.im);
 					x = (int) z.re;
 					y = (int) z.im;
 				}
@@ -160,9 +141,10 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	{
 		long trenutniCas = System.currentTimeMillis() - zacetniCas;
 		int mestoVSeznamu = (int) Math.abs(trenutniCas*dolzinaAudioData/dolzinaPesmi);
-		int di = (int) 64; //(dolzinaAudioData/dolzinaPesmi); //st podatkov v sekundi,,,   Fourie://64;//to mora biti potenca števila 2!!!! 
+		int di = (int) (dolzinaAudioData/dolzinaPesmi); //st podatkov v sekundi
 		int dt = (int) (0.5 * di); //ms
 		double moc = 0;
+		@SuppressWarnings("unused")
 		double C = 1/(Math.log(1+(dt+1))); //obratna vrednost delne harmoniène vrste
 		double G = 1/((1-Math.pow(0.5, dt))*2); //obratna vrednost delne geometrijske vrste
 		
@@ -185,127 +167,29 @@ public class Animacija extends JPanel implements ActionListener, KeyListener {
 	{
 		long trenutniCas = System.currentTimeMillis() - zacetniCas;
 		int mestoVSeznamu = (int) Math.abs(trenutniCas*dolzinaAudioData/dolzinaPesmi);
-		int di = (int) 64; //(dolzinaAudioData/dolzinaPesmi); //st podatkov v sekundi,,,   Fourie://64;//to mora biti potenca števila 2!!!! 
-		int dt = (int) (0.5 * di); //ms
-		Complex[] kompSeznam = new Complex[dt];
+		Complex[] kompSeznam = new Complex[ft];
 		
-		for(int i = mestoVSeznamu, j = 1; i<dolzinaAudioData && i > mestoVSeznamu-dt; i-- ,j++)
+		for(int i = mestoVSeznamu, j = 1; i<dolzinaAudioData && i > mestoVSeznamu-ft; i-- ,j++)
 		{
 			Complex kompStevilo = new Complex(this.audioData[i],0);
 			kompSeznam[j-1] = kompStevilo;
 		}
 		
-		if (kompSeznam.length==0){
-			kompSeznam[0]=Complex(0,0);
-			return kompSeznam;
-		}
-		
-
-		
-
-		
 		return FFT.fft(kompSeznam);
-	}
+	}		
 		
-	
-	
-		
-		
-		
-//		if(mestoVSeznamu < this.dolzinaAudioData)
-//		{
-//		
-//		
-//		//Complex[] kompSeznam = new Complex[0];
-//		//frekvenca.fft(kompleksno);
-//		Complex[] kompSeznam = new Complex[dt];
-//		for(int i = mestoVSeznamu, k=0; i > mestoVSeznamu-dt;  k++,i--)
-//		{
-//			
-//			Complex kompStevilo = new Complex(this.audioData[i],0);
-//			kompSeznam[k] = kompStevilo;
-//			//Complex[] sezStevil;
-//			moc += Math.abs(this.audioData[i])/(mestoVSeznamu - i + 1);
-//			
-//		}
-//		//System.out.println(kompSeznam1);
-//		//FFT frekvenca = new FFT();		
-//		System.out.println("frekvenca: " + FFT.fft(kompSeznam)[0]);
-//		System.out.println("moc: " + (Math.atan(moc/(dt*dt))*(1000/Math.PI)));
-//		System.out.println("surovo: " + audioData[mestoVSeznamu]);
-//		}
-////		if(mestoVSeznamu < dolzinaAudioData)
-////		{
-////			//r = audioData[mestoVSeznamu]/10;
-////				return (int) audioData[mestoVSeznamu]/50000;
-////			}
-//		
-//		//System.out.println("moc: " + (Math.atan(moc/(dt*dt))*(1000/Math.PI)));
-//		
-//		
-//		return (int) (Math.pow(Math.atan(moc/(dt*dt))*(1000/Math.PI),1.5)*0.03);
-//	}
 
 
-	private Complex Complex(int i, int j) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
-	public void actionPerformed(ActionEvent e) //na vsake "cas = 5ms" se izvede ta akcija (prišteje se kot) in potem se poklièe repaint();
+	public void actionPerformed(ActionEvent e) //na vsake "cas = 37ms" se izvede ta akcija (prišteje se kot) in potem se poklièe repaint();
 	{
 		w += velW;
 		repaint();
 	}
 
 
-	@Override
-	public void keyPressed(KeyEvent e) 
-	{
-		int c = e.getKeyCode();
-		
-		if(c == KeyEvent.VK_LEFT)
-		{
-			velW += -1;
-		}
-		if(c == KeyEvent.VK_UP)
-		{
-			r += 10; 
-		}
-		if(c == KeyEvent.VK_RIGHT)
-		{
-			velW += 1;
-		}
-		if(c == KeyEvent.VK_DOWN)
-		{
-			r -= 10;
-		}
-		if(c == KeyEvent.VK_S)
-		{
-			velW = 0;
-		}
-		if(c == KeyEvent.VK_2)
-		{
-			r = 200;
-		}
-		if(c == KeyEvent.VK_3)
-		{
-			r = 300;
-		}
-	}
+	
 
-
-	@Override
-	public void keyReleased(KeyEvent e)
-	{
-
-	}
-
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 }
