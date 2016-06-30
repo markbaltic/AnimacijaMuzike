@@ -32,10 +32,11 @@ import javazoom.jl.decoder.JavaLayerException;
 public class Test {
 	public static int podatek;
 	static String datoteka1 ="Commercial DEMO - 15.mp3.wav";
-	static String datoteka = "test.mp3.wav";
+	static String datoteka2 = "test.mp3.wav";
 	static String datoteka5 = "03 Gramatik - War Of The Currents.mp3.wav";
 	static String datoteka4 = "test3.wav";
 	static String datoteka7 = "1 minute dance music.mp3";
+	static String datoteka = "Westminster-chimes.mp3";
 	static Pretvornik pDatoteka;
 	static long zacetniCas = 0;
 	static int dolzinaSeznamaAmplitud;
@@ -166,6 +167,31 @@ public class Test {
 				Animacija.oblika = "krogec";
 			}
 		});
+		
+		JMenuItem fft = new JMenuItem(new AbstractAction("Fourier")
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				Animacija.oblika = "fft";
+			}
+		});
+		
+		JMenuItem tocke = new JMenuItem(new AbstractAction("Tocke")
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				Animacija.oblika = "tocke";
+			}
+		});
+		
+		JMenuItem lomljenka = new JMenuItem(new AbstractAction("Lomljenka")
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				Animacija.oblika = "lomljenka";
+			}
+		});
+		
 		JMenuItem pavza = new JMenuItem(new AbstractAction("Pavza")
 		{
 
@@ -235,6 +261,9 @@ public class Test {
 		fileMenu.add(krogi);
 		fileMenu.add(crta);
 		fileMenu.add(krogec);
+		fileMenu.add(fft);
+		fileMenu.add(tocke);
+		fileMenu.add(lomljenka);
 		
 		predvajanje.add(igraj);
 		predvajanje.add(pavza);
