@@ -38,9 +38,8 @@ public class AnimacijaMuzike {
 		AnalizaZvoka awc = new AnalizaZvoka(pretvorjenaDatoteka);
 		int[] seznamAmplitud = awc.createAudioInputStream();
 		dolzinaSeznamaAmplitud = seznamAmplitud.length;
-		System.out.println(seznamAmplitud.length + ": dolzina seznama amplitud");
         int dolzinaPesmi = (int) awc.dolzinaPesmi();
-        System.out.println(dolzinaPesmi + ": dolzina pesmi v sekundah");
+        System.out.println(dolzinaPesmi + ": dolzina pesmi v milisekundah");
         
         //Predvajam pesem
         try 
@@ -94,8 +93,7 @@ public class AnimacijaMuzike {
 		
 		final JFrame okno = new JFrame();
 		
-		
-		
+			
 		okno.setTitle("Animacija Muzike");
 		okno.setSize(600, 600);
 		okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
