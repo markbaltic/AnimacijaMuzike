@@ -4,17 +4,21 @@ Pri predmetu Programiranje 2 sva si za projekt izbrala aplikacijo za animacijo m
 
 
 ## ZAHTEVE
-Igra je bila preizkušena na navedenih programskih paketih. Lahko deluje tudi na starejših verzijah.
-* Java 1.7 [veè informacij](https://www.java.org/)
-* JLayer 1.0.1 [veè informacij](http://www.javazoom.net/javalayer/javalayer.html)
+Igra je bila preizkuÅ¡ena na navedenih programskih paketih. Lahko deluje tudi na starejÅ¡ih verzijah.
+* Java 1.7 [veÄ informacij](https://www.java.org/)
+* JLayer 1.0.1 [veÄ informacij](http://www.javazoom.net/javalayer/javalayer.html)
 
 ## NAVODILA ZA ZAGON
-Aplikacija je bila napisana in preizkušena v Eclipse. Main se nahaja v AnimacijaMuzike.java. Iz ukazne vrstice torej aplikacijo zaenemo `java AnimacijaMuzike`.
+Aplikacija je bila napisana in preizkuÅ¡ena v Eclipse. Main se nahaja v AnimacijaMuzike.java. Iz ukazne vrstice torej aplikacijo zaÅ¾enemo `java AnimacijaMuzike`.
 
 ## NAVODILA ZA UPORABO
-Aplikacija ima e nastavljeno testno glasbeno datoteko, ki se zaène predvajati ob zaguno aplikacije. V meniju `Oblika` si lahko izberete vrsto animacije, ki se prikazuje v oknu. V meniju `Predvajanje` pa lahko animacijo ter glasbo ustavite, nato pa s predvajanjem tudi nadaljujete.
-Èe elite aplikacijo preizkusiti na kakšni drugi glasbeni datoteki, iz menija izberite `Predvajanje -> Datoteka`. Glasbene datoteke morajo biti v formatih `.mp3` ali `.wav`.
+Aplikacija ima Å¾e nastavljeno testno glasbeno datoteko, ki se zaÄne predvajati ob zaguno aplikacije. V meniju `Oblika` si lahko izberete vrsto animacije, ki se prikazuje v oknu. V meniju `Predvajanje` pa lahko animacijo ter glasbo ustavite, nato pa s predvajanjem tudi nadaljujete.
+ÄŒe Å¾elite aplikacijo preizkusiti na kakÅ¡ni drugi glasbeni datoteki, iz menija izberite `Predvajanje -> Datoteka`. Glasbene datoteke morajo biti v formatih `.mp3` ali `.wav`.
 
 
-## Poroèanje napak in hrošèev
-Avtorja vljudno naprošava, da morebitne napake, teave in hrošèe v programu sporoèite na [issue](https://github.com/markbaltic/AnimacijaMuzike/issues).
+## PoroÄanje napak in hroÅ¡Äev
+Avtorja vljudno naproÅ¡ava, da morebitne napake, teÅ¾ave in hroÅ¡Äe v programu sporoÄite na [issue](https://github.com/markbaltic/AnimacijaMuzike/issues).
+
+## Reference
+* [Complex](http://introcs.cs.princeton.edu/java/97data/Complex.java.html)
+* [FFT](http://introcs.cs.princeton.edu/java/97data/FFT.java.html)
