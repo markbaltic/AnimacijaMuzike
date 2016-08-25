@@ -17,6 +17,7 @@
  *      it re-allocates memory for the subarray, instead of doing
  *      in-place or reusing a single temporary array)
  *  
+ *  Copyright © 2002-2015, Robert Sedgewick and Kevin Wayne. 
  ******************************************************************************/
 
 public class FFT {
