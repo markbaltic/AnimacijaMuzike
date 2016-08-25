@@ -2,7 +2,7 @@ This license applies to the following files:
 * src/FFT.java
 * src/Complex.java
 
-Copyright © 2000–2011, Robert Sedgewick and Kevin Wayne. 
+Copyright © 2002–2015, Robert Sedgewick and Kevin Wayne. 
 
 This license applies to any other files. 
 
@@ -680,3 +680,5 @@ may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <http://www.gnu.org/philosophy/why-not-lgpl.html>.
+
+
