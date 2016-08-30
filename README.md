@@ -22,5 +22,6 @@ Avtorja vljudno naprošava, da morebitne napake, težave in hrošče v programu 
 ## Reference
 * [Complex](http://introcs.cs.princeton.edu/java/97data/Complex.java.html)
 * [FFT](http://introcs.cs.princeton.edu/java/97data/FFT.java.html)
-* 
+
+
 "Copyright 2016 by Mark Baltič and Jure Bernot."
