@@ -24,4 +24,4 @@ Avtorja vljudno naprošava, da morebitne napake, težave in hrošče v programu 
 * [FFT](http://introcs.cs.princeton.edu/java/97data/FFT.java.html)
 
 
-"Copyright 2016 by Mark Baltič and Jure Bernot."
+Copyright 2016 by Mark Baltič and Jure Bernot.
